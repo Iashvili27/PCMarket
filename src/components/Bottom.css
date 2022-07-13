@@ -1,0 +1,8 @@
+.bottom-container {
+  display: flex;
+  height: 200px;
+  background-color: #131921;
+  color: white;
+  align-items: center;
+  justify-content: center;
+}

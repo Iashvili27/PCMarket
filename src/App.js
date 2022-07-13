@@ -6,20 +6,22 @@ import Login from "./components/Login";
 import AddItem from "./components/AddItem";
 import Contact from "./components/Contact";
 import Signup from "./components/Signup";
+import Bottom from "./components/Bottom";
 
 function App() {
   return (
     <BrowserRouter>
       <div className="app">
         <Header />
+        <Routes>
+          <Route path="/" element={<Homepage />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/signup" element={<Signup />}></Route>
+          <Route path="/additem" element={<AddItem />}></Route>
+          <Route path="/contact" element={<Contact />}></Route>
+        </Routes>
+        <Bottom />
       </div>
-      <Routes>
-        <Route path="/" element={<Homepage />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/signup" element={<Signup />}></Route>
-        <Route path="/additem" element={<AddItem />}></Route>
-        <Route path="/contact" element={<Contact />}></Route>
-      </Routes>
     </BrowserRouter>
   );
 }
