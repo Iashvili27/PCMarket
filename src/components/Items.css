@@ -2,3 +2,48 @@
   width: 200px;
   height: 200px;
 }
+
+.card {
+  width: 200px;
+  height: 300px;
+  display: flex;
+  overflow: hidden;
+  background: #f8f8f8;
+  border-radius: 0.5rem;
+  margin: 0.75rem;
+  box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px -1px,
+    rgb(0 0 0 / 6%) 0px 2px 4px -1px;
+  flex-direction: column;
+}
+
+.cardcontainer {
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: space-around;
+  -webkit-box-align: center;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 1920px;
+}
+
+.carddsc {
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.cardtxt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50%;
+  width: 100%;
+}
+
+.cardprice {
+  height: 50%;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
