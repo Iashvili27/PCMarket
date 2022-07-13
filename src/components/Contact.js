@@ -14,7 +14,7 @@ function Contact() {
       <p>{inputValue}</p>
 
       <input value={inputValue} onChange={inputHandler}></input>
-      <button onClick={changeHandler}>click ghere</button>
+      <button onClick={changeHandler}>click here</button>
     </div>
   );
 }
