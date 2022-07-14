@@ -9,17 +9,23 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [password, setPassword] = useState("");
+  const [secpassword, setSecPassword] = useState("");
   const { signUp } = useUserAuth();
   let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    try {
-      await signUp(email, password);
-      navigate("/");
-    } catch (err) {
-      setError(err.message);
+    if (password === secpassword) {
+      e.preventDefault();
+      setError("");
+      try {
+        await signUp(email, password);
+        navigate("/");
+      } catch (err) {
+        setError(err.message);
+      }
+    } else {
+      e.preventDefault();
+      setError("Password are not same");
     }
   };
 
@@ -43,6 +49,13 @@ const Signup = () => {
                 type="password"
                 placeholder="Password"
                 onChange={(e) => setPassword(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="signup-mb-3" controlId="formBasicPassword">
+              <Form.Control
+                type="password"
+                placeholder="Repeat Password"
+                onChange={(e) => setSecPassword(e.target.value)}
               />
             </Form.Group>
 
