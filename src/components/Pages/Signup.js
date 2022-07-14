@@ -10,7 +10,7 @@ const Signup = () => {
   const [error, setError] = useState("");
   const [password, setPassword] = useState("");
   const [secpassword, setSecPassword] = useState("");
-  const { signUp } = useUserAuth();
+  const { signUp, emailVerification } = useUserAuth();
   let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -27,6 +27,12 @@ const Signup = () => {
       e.preventDefault();
       setError("Password are not same");
     }
+  };
+
+  const emailVerify = async () => {
+    emailVerification().then(() => {
+      console.log("verified");
+    });
   };
 
   return (
@@ -73,6 +79,7 @@ const Signup = () => {
         <div className="signup-p-4 box mt-3 text-center">
           Already have an account? <Link to="/login">Log In</Link>
         </div>
+        <button onClick={emailVerify}>verufy</button>
       </div>
     </div>
   );

@@ -19,7 +19,6 @@ function Header() {
 
   return (
     <Fragment>
-      {console.log(user)}
       <div className="header__container">
         <div className="header__name">
           <Link to="/" className="header__text">
@@ -42,15 +41,27 @@ function Header() {
               Contact
             </Link>
           </li>
+
           {user ? (
             <li>
-              <Link
-                onClick={handleLogOut}
-                className="header__navlink"
-                to="/login"
-              >
-                Logout
-              </Link>
+              <div className="dropdown">
+                <p className="header__navlink">{user.email}</p>
+                <div className="dropdown-content">
+                  <Link className="header__navl" to="/additem">
+                    Add Item +
+                  </Link>
+                  <Link className="header__navl" to="/Preferences">
+                    Preferences
+                  </Link>
+                  <Link
+                    onClick={handleLogOut}
+                    className="header__navl"
+                    to="/login"
+                  >
+                    Logout
+                  </Link>
+                </div>
+              </div>
             </li>
           ) : (
             <li>

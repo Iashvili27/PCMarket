@@ -6,6 +6,7 @@ import {
   signOut,
   GoogleAuthProvider,
   signInWithPopup,
+  sendEmailVerification,
 } from "firebase/auth";
 import { auth } from "../firebase";
 
@@ -13,6 +14,10 @@ const userAuthContext = createContext();
 
 export function UserAuthContextProvider({ children }) {
   const [user, setUser] = useState({});
+
+  function emailVerification() {
+    return sendEmailVerification(auth.currentUser);
+  }
 
   function logIn(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
@@ -41,7 +46,7 @@ export function UserAuthContextProvider({ children }) {
 
   return (
     <userAuthContext.Provider
-      value={{ user, logIn, signUp, logOut, googleSignIn }}
+      value={{ user, logIn, signUp, logOut, googleSignIn, emailVerification }}
     >
       {children}
     </userAuthContext.Provider>
