@@ -4,7 +4,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import AddIcon from "@mui/icons-material/Add";
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { useUserAuth } from "../context/UserAuthContext";
+import { useUserAuth } from "../../context/UserAuthContext";
 
 function Header() {
   const { user, logOut } = useUserAuth();

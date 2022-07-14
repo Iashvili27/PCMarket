@@ -1,8 +1,8 @@
 import React from "react";
-import ItemData from "../DATA/ItemData";
-import "./Items.css";
+import ItemData from "../../DATA/ItemData";
+import "./Card.css";
 
-function Items() {
+function Card() {
   return (
     <div className="cardcontainer">
       {ItemData.map((item, index) => (
@@ -24,4 +24,4 @@ function Items() {
   );
 }
 
-export default Items;
+export default Card;

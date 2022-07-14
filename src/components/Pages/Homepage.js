@@ -1,11 +1,11 @@
 import React from "react";
-import Items from "./Items";
+import Card from "../Cards/Card";
 import "./Homepage.css";
 
 function Homepage() {
   return (
     <div className="container">
-      <Items />
+      <Card />
     </div>
   );
 }

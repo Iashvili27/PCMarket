@@ -1,12 +1,12 @@
 import "./App.css";
-import Header from "./components/Header";
+import Header from "./components/Navigation/Header";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Homepage from "./components/Homepage";
-import Login from "./components/Login";
-import AddItem from "./components/AddItem";
-import Contact from "./components/Contact";
-import Signup from "./components/Signup";
-import Bottom from "./components/Bottom";
+import Homepage from "./components/Pages/Homepage";
+import Login from "./components/Pages/Login";
+import AddItem from "./components/Pages/AddItem";
+import Contact from "./components/Pages/Contact";
+import Signup from "./components/Pages/Signup";
+import Bottom from "./components/Navigation/Bottom";
 
 function App() {
   return (
