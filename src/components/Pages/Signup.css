@@ -1,4 +1,4 @@
-.login-body {
+.signup-body {
   font-family: "BPG Arial";
   color: #26262a;
   display: flex;
@@ -9,7 +9,7 @@
   justify-content: center;
 }
 
-.login-container {
+.signup-container {
   min-height: 500px;
   min-width: 320px;
   display: flex;
@@ -21,21 +21,20 @@
   justify-content: space-evenly;
 }
 
-.p-4-box {
-  min-height: 400px;
-  width: 100%;
+.signup-p-4-box {
+  height: 100%;
   display: flex;
+  align-items: center;
   justify-content: space-around;
   flex-direction: column;
-  align-items: center;
 }
 
-.d-grid-button {
+.signup-d-grid-button {
   display: flex;
   justify-content: center;
 }
 
-.form-class {
+.signup-form-class {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,13 +43,13 @@
   height: 200px;
 }
 
-.mb-3 {
+.signup-mb-3 {
   border: 1px solid #e1e1e1;
   background-color: #fff;
   border-radius: 50px;
 }
 
-.mb-3 input {
+.signup-mb-3 input {
   display: flex;
   align-self: center;
   height: 48px;
@@ -64,7 +63,7 @@
   outline: none;
 }
 
-.d-grid {
+.signup-d-grid {
   height: 48px;
   border: 1px solid #e1e1e1;
   background-color: #fff;
@@ -75,7 +74,7 @@
   width: 78%;
 }
 
-.d-grid-button {
+.signup-d-grid-button {
   width: 100%;
   height: 100%;
   border: none;
