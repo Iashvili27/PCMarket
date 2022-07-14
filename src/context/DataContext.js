@@ -1,23 +1,75 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { db } from "../firebase";
 import { uid } from "uid";
-import { set, ref } from "firebase/database";
+import { set, ref, onValue, serverTimestamp } from "firebase/database";
+import { useUserAuth } from "./UserAuthContext";
 
 const dataContext = createContext();
 
 export function DataContextProvider({ children }) {
-  const [inputValue, setInputValue] = useState("");
+  const { user } = useUserAuth();
+  const [category, setCategory] = useState("");
+  const [contactnumber, setContactNumber] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [sellername, setSellerName] = useState("");
+  const [title, setTitle] = useState("");
+  const [imageurl, setImageUrl] = useState("");
+  const [useruid, setUserUid] = useState("");
+  const [items, setItems] = useState([]);
+
   const writeToDatabase = () => {
     const uuid = uid();
-    set(ref(db, `/${uuid}`), { inputValue, uuid });
-    setInputValue("");
+    set(ref(db, `/${uuid}`), {
+      category,
+      contactnumber,
+      description,
+      price,
+      sellername,
+      title,
+      imageurl,
+      uuid,
+      useruid,
+    });
+    setTitle("");
   };
   const changeHandler = () => {
-    setInputValue(console.log(inputValue));
+    setUserUid(user.uid);
+    setTitle(console.log(title));
     writeToDatabase();
   };
+  useEffect(() => {
+    onValue(ref(db), (snapshot) => {
+      const data = snapshot.val();
+
+      if (data !== null) {
+        Object.values(data).map((item) => {
+          setItems((oldArray) => [...oldArray, item]);
+        });
+      }
+    });
+  }, []);
   return (
-    <dataContext.Provider value={{ inputValue, setInputValue, changeHandler }}>
+    <dataContext.Provider
+      value={{
+        category,
+        setCategory,
+        contactnumber,
+        setContactNumber,
+        description,
+        setDescription,
+        price,
+        setPrice,
+        sellername,
+        setSellerName,
+        title,
+        setTitle,
+        imageurl,
+        setImageUrl,
+        changeHandler,
+        items,
+      }}
+    >
       {children}
     </dataContext.Provider>
   );
