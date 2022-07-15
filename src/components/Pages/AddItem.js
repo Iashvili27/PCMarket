@@ -34,6 +34,7 @@ function AddItem() {
             <div className="additem-category">
               <h3>Choose category</h3>
               <select
+                className="item-select"
                 onChange={(e) => setCategory(e.target.value)}
                 name="category"
                 id="category"

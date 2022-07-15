@@ -1,6 +1,7 @@
 import React from "react";
 import "./Card.css";
 import { useDataContext } from "../../context/DataContext";
+import { Link } from "react-router-dom";
 
 function Card() {
   const { items } = useDataContext();
@@ -23,23 +24,6 @@ function Card() {
         </div>
       ))}
     </div>
-    // <div className="cardcontainer">
-    //   {ItemData.map((item, index) => (
-    //     <div className="card" key={index}>
-    //       <div className="cardimg">
-    //         <img className="image" alt="img" src={item.img} />
-    //       </div>
-    //       <div className="carddsc">
-    //         <div className="cardtxt">
-    //           <p>{item.name}</p>
-    //         </div>
-    //         <div className="cardprice">
-    //           <p>{item.price}.00 GEL</p>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   ))}
-    // </div>
   );
 }
 
