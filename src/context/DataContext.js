@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { db } from "../firebase";
 import { uid } from "uid";
-import { set, ref, onValue, serverTimestamp } from "firebase/database";
+import { set, ref, onValue } from "firebase/database";
 import { useUserAuth } from "./UserAuthContext";
 
 const dataContext = createContext();
@@ -15,8 +15,10 @@ export function DataContextProvider({ children }) {
   const [sellername, setSellerName] = useState("");
   const [title, setTitle] = useState("");
   const [imageurl, setImageUrl] = useState("");
-  const [useruid, setUserUid] = useState("");
+  // const [useruid, setUserUid] = useState("");
   const [items, setItems] = useState([]);
+
+  const userUid = user ? user.uid : null;
 
   const writeToDatabase = () => {
     const uuid = uid();
@@ -29,13 +31,18 @@ export function DataContextProvider({ children }) {
       title,
       imageurl,
       uuid,
-      useruid,
+      userUid,
     });
     setTitle("");
+    setCategory("");
+    setContactNumber("");
+    setDescription("");
+    setPrice("");
+    setSellerName("");
+    setImageUrl("");
   };
   const changeHandler = () => {
-    setUserUid(user.uid);
-    setTitle(console.log(title));
+    // setUserUid(user.uid);
     writeToDatabase();
   };
   useEffect(() => {
@@ -43,9 +50,9 @@ export function DataContextProvider({ children }) {
       const data = snapshot.val();
 
       if (data !== null) {
-        Object.values(data).map((item) => {
-          setItems((oldArray) => [...oldArray, item]);
-        });
+        Object.values(data).map((item) =>
+          setItems((oldArray) => [...oldArray, item])
+        );
       }
     });
   }, []);

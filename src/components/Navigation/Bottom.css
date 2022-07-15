@@ -1,6 +1,9 @@
 .bottom-container {
   display: flex;
   height: 200px;
+  left: 0;
+  bottom: 0;
+  right: 0;
   background-color: #131921;
   color: white;
   align-items: center;

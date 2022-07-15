@@ -1,5 +1,4 @@
 import React from "react";
-import ItemData from "../../DATA/ItemData";
 import "./Card.css";
 import { useDataContext } from "../../context/DataContext";
 
@@ -18,7 +17,7 @@ function Card() {
               <p>{item.title}</p>
             </div>
             <div className="cardprice">
-              <p>{item.price}.00 GEL</p>
+              {item.price ? <p>{item.price}.00 GEL</p> : <p>OFFER</p>}
             </div>
           </div>
         </div>
