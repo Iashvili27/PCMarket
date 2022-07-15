@@ -23,6 +23,7 @@ export function DataContextProvider({ children }) {
   const writeToDatabase = () => {
     const uuid = uid();
     set(ref(db, `/${uuid}`), {
+      uuid,
       category,
       contactnumber,
       description,
@@ -30,7 +31,6 @@ export function DataContextProvider({ children }) {
       sellername,
       title,
       imageurl,
-      uuid,
       userUid,
     });
     setTitle("");
@@ -41,18 +41,18 @@ export function DataContextProvider({ children }) {
     setSellerName("");
     setImageUrl("");
   };
+
   const changeHandler = () => {
-    // setUserUid(user.uid);
     writeToDatabase();
   };
   useEffect(() => {
     onValue(ref(db), (snapshot) => {
       const data = snapshot.val();
-
       if (data !== null) {
-        Object.values(data).map((item) =>
-          setItems((oldArray) => [...oldArray, item])
-        );
+        // Object.values(data).map((item) =>
+        //   setItems((prevItems) => [item, ...prevItems])
+        // );
+        setItems(Object.values(data));
       }
     });
   }, []);
