@@ -3,13 +3,16 @@ import "./Card.css";
 import { useDataContext } from "../../context/DataContext";
 import { Link } from "react-router-dom";
 
-function Card() {
+import { useDataContext } from "../../context/DataContext";
+import { Link } from "react-router-dom";
+
+const Card = ({ page }) => {
   const { items } = useDataContext();
   console.log(items);
   return (
     <div className="cardcontainer">
-      {items.map((item) => (
-        <div className="card" key={item.uuid}>
+      {items.map((item, index) => (
+        <Link to={`${page}${index}`} className="card" key={item.uuid}>
           <div className="cardimg">
             <img className="image" alt="img" src={item.img} />
           </div>
@@ -21,10 +24,10 @@ function Card() {
               {item.price ? <p>{item.price}.00 GEL</p> : <p>OFFER</p>}
             </div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
-}
+};
 
 export default Card;

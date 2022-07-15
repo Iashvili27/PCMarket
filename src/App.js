@@ -7,6 +7,7 @@ import AddItem from "./components/Pages/AddItem";
 import Contact from "./components/Pages/Contact";
 import Signup from "./components/Pages/Signup";
 import Bottom from "./components/Navigation/Bottom";
+import CardDetails from "./components/Cards/CardDetails";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Homepage />}></Route>
+          <Route path="/:id" element={<CardDetails />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/additem" element={<AddItem />}></Route>

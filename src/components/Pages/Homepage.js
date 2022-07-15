@@ -5,7 +5,7 @@ import "./Homepage.css";
 function Homepage() {
   return (
     <div className="container">
-      <Card />
+      <Card page="/" />
     </div>
   );
 }
