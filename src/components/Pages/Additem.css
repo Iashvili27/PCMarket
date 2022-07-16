@@ -104,6 +104,9 @@
   background-color: #131921;
   color: white;
 }
+.d--button:hover {
+  cursor: pointer;
+}
 
 .succesfullyadded p {
   color: red;
