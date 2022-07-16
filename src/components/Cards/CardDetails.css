@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .carddetails-container {
   display: flex;
   width: 100%;
@@ -35,4 +36,8 @@
   align-items: center;
   justify-content: space-evenly;
   margin: 10px;
+=======
+.CardDetails_container {
+  width: 100%;
+>>>>>>> 9c61e94dfe4f76d597d0e663ace342b21bf7ee57
 }
