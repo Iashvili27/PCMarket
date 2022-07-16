@@ -1,14 +1,34 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useDataContext } from "../../context/DataContext";
+import "./CardDetails.css";
+
 function CardDetails() {
   const { items } = useDataContext();
   let { id } = useParams();
-  console.log(items);
+
+  console.log(items[id].description);
+
   return (
-    <div className="CardDetails_container">
-      <div className="cardDetails_image"></div>
-      <p>{items[id].title}</p>
+    <div className="carddetails-container">
+      {items.length > 0 ? (
+        <div className="carddetails-itempage">
+          <div className="carddetails-image">
+            <img alt="item" src={items[id].imageUrl}></img>
+          </div>
+          <div className="carddetails-description">
+            <p>{items[id].title}</p>
+            <p>{items[id].description}</p>
+            <p>{items[id].contactnumber}</p>
+            <p>{items[id].price}</p>
+            <p>{items[id].sellername}</p>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <h3>Loading.. please wait.</h3>
+        </div>
+      )}
     </div>
   );
 }

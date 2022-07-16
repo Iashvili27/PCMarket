@@ -2,14 +2,15 @@
   margin: 0;
 }
 
-body {
+body,
+html {
   margin: 0;
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
   overflow-x: hidden;
   display: block;
+  min-height: 100% !important;
   height: 100%;
   width: 100%;
 }

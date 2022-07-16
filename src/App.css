@@ -1,5 +1,12 @@
 .app {
+  min-height: 100% !important;
+  height: 100%;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
   flex-direction: column;
+}
+
+.app-container {
+  height: 100%;
+  min-height: 100vh;
 }

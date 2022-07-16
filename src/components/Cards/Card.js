@@ -3,12 +3,11 @@ import "./Card.css";
 import { useDataContext } from "../../context/DataContext";
 import { Link } from "react-router-dom";
 
-import { useDataContext } from "../../context/DataContext";
-import { Link } from "react-router-dom";
-
 const Card = ({ page }) => {
   const { items } = useDataContext();
+
   console.log(items);
+
   return (
     <div className="cardcontainer">
       {items.map((item, index) => (

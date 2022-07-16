@@ -1,11 +1,20 @@
 .bottom-container {
-  display: flex;
-  height: 200px;
-  left: 0;
+  /* display: flex;
+  position: fixed;
+  height: 100px;
   bottom: 0;
+  left: 0;
   right: 0;
   background-color: #131921;
   color: white;
   align-items: center;
+  justify-content: center; */
+  display: flex;
   justify-content: center;
+  align-items: center;
+  position: relative;
+  bottom: 0;
+  height: 150px;
+  color: #fff;
+  background-color: #000;
 }
