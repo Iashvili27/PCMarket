@@ -13,7 +13,7 @@ const Card = ({ page }) => {
       {items.map((item, index) => (
         <Link to={`${page}${index}`} className="card" key={item.uuid}>
           <div className="cardimg">
-            <img className="image" alt="img" src={item.img} />
+            <img className="card-image" alt="img" src={`${item.imageurl}`} />
           </div>
           <div className="carddsc">
             <div className="cardtxt">

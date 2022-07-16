@@ -15,6 +15,7 @@ function AddItem() {
     setSellerName,
     setTitle,
     changeHandler,
+    setImageUrl,
   } = useDataContext();
 
   const submitHandler = () => {
@@ -82,7 +83,12 @@ function AddItem() {
               />
             </div>
             <div className="additem-image">
-              <h3>Upload image here</h3>
+              <h3>Enter image url here</h3>
+              <input
+                onChange={(e) => setImageUrl(e.target.value)}
+                name="desc"
+                type="text"
+              />
             </div>
             <div className="additem-desc">
               <h3>Write item description</h3>

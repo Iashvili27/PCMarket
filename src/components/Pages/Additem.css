@@ -56,7 +56,8 @@
 .additem-title input,
 .additem-sellername input,
 .additem-phone input,
-.additem-price input {
+.additem-price input,
+.additem-image input {
   display: flex;
   align-self: center;
   height: 30px;

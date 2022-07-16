@@ -7,14 +7,18 @@ function CardDetails() {
   const { items } = useDataContext();
   let { id } = useParams();
 
-  console.log(items[id].description);
+  console.log(items[id]);
 
   return (
     <div className="carddetails-container">
       {items.length > 0 ? (
         <div className="carddetails-itempage">
-          <div className="carddetails-image">
-            <img alt="item" src={items[id].imageUrl}></img>
+          <div className="carddetails-image-container">
+            <img
+              className="carddetails-image"
+              alt="item"
+              src={`${items[id].imageurl}`}
+            ></img>
           </div>
           <div className="carddetails-description">
             <p>{items[id].title}</p>
