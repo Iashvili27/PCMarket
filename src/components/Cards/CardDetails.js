@@ -7,8 +7,6 @@ function CardDetails() {
   const { items } = useDataContext();
   let { id } = useParams();
 
-  console.log(items[id]);
-
   return (
     <div className="carddetails-container">
       {items.length > 0 ? (
@@ -21,11 +19,27 @@ function CardDetails() {
             ></img>
           </div>
           <div className="carddetails-description">
-            <p>{items[id].title}</p>
-            <p>{items[id].description}</p>
-            <p>{items[id].contactnumber}</p>
-            <p>{items[id].price}</p>
-            <p>{items[id].sellername}</p>
+            <p>
+              <span>Item Name : </span>
+              {items[id].title}
+            </p>
+            <p>
+              <span>Description : </span>
+              {items[id].description}
+            </p>
+            <p>
+              <span>Price : </span>
+              {items[id].price}.00 GEL
+            </p>
+            <p>
+              <span>Seller Number : </span>
+              {items[id].contactnumber}
+            </p>
+
+            <p>
+              <span>Seller Name : </span>
+              {items[id].sellername}
+            </p>
           </div>
         </div>
       ) : (

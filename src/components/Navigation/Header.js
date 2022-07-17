@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Header.css";
 import SearchIcon from "@mui/icons-material/Search";
 // import AddIcon from "@mui/icons-material/Add";
@@ -10,6 +10,7 @@ import { useSearchContext } from "../../context/SearchContext";
 function Header() {
   const { user, logOut } = useUserAuth();
   const { searchHandler, setCategory } = useSearchContext();
+  const [inputValue, setInputValue] = useState("");
 
   const handleLogOut = async () => {
     try {
@@ -21,6 +22,13 @@ function Header() {
 
   const mainPageClickHandler = () => {
     setCategory("");
+    searchHandler("");
+    setInputValue("");
+  };
+
+  const formSubmit = (event) => {
+    event.preventDefault();
+    searchHandler(inputValue);
   };
 
   return (
@@ -31,12 +39,18 @@ function Header() {
             PCMarket
           </Link>
         </div>
-        <div className="header__search">
-          <div className="header__search">
-            <input onChange={searchHandler} className="header__inp" />
+        <form className="header__search" onSubmit={formSubmit}>
+          <input
+            value={inputValue}
+            onChange={(e) => {
+              setInputValue(e.target.value);
+            }}
+            className="header__inp"
+          />
+          <button type="submit">
             <SearchIcon className="header__icon" />
-          </div>
-        </div>
+          </button>
+        </form>
         <ul className="header__nav">
           <li>
             <Link className="header__navlink" to="/">
@@ -53,6 +67,7 @@ function Header() {
           {user ? (
             <li>
               <div className="dropdown">
+                <p className="header__navlinkuser">{user.email}</p>
                 <p className="header__navlink">{user.email}</p>
                 <div className="dropdown-content">
                   <Link className="header__navl" to="/additem">
@@ -73,7 +88,7 @@ function Header() {
             </li>
           ) : (
             <li>
-              <Link className="header__navlink" to="/login">
+              <Link className="header__navlinklogin" to="/login">
                 Login
               </Link>
             </li>

@@ -6,8 +6,8 @@ export function SearchContextProvider({ children }) {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
 
-  const searchHandler = (e) => {
-    setSearch(e.target.value);
+  const searchHandler = (value) => {
+    setSearch(value);
   };
 
   return (

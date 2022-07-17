@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Card.css";
 import { useDataContext } from "../../context/DataContext";
 import { useSearchContext } from "../../context/SearchContext";
@@ -8,11 +8,9 @@ const Card = ({ page }) => {
   const { items } = useDataContext();
   const { search, category } = useSearchContext();
 
-  console.log(search);
-
   return (
     <div className="cardfragment">
-      <h3>{category}</h3>
+      {category ? <h3>{category}</h3> : null}
       <div className="cardcontainer">
         {items
           .filter((item) => {
