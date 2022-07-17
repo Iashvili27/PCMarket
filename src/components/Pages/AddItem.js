@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDataContext } from "../../context/DataContext";
 import "./Additem.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function AddItem() {
   const [itemadded, setItemAdded] = useState(false);

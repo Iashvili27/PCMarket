@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Header.css";
 import SearchIcon from "@mui/icons-material/Search";
-import AddIcon from "@mui/icons-material/Add";
+// import AddIcon from "@mui/icons-material/Add";
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
+import { useSearchContext } from "../../context/SearchContext";
 
 function Header() {
   const { user, logOut } = useUserAuth();
+  const { searchHandler, setCategory } = useSearchContext();
 
   const handleLogOut = async () => {
     try {
@@ -17,17 +19,23 @@ function Header() {
     }
   };
 
+  const mainPageClickHandler = () => {
+    setCategory("");
+  };
+
   return (
     <Fragment>
       <div className="header__container">
-        <div className="header__name">
+        <div onClick={mainPageClickHandler} className="header__name">
           <Link to="/" className="header__text">
             PCMarket
           </Link>
         </div>
         <div className="header__search">
-          <input className="header__inp" />
-          <SearchIcon className="header__icon" />
+          <div className="header__search">
+            <input onChange={searchHandler} className="header__inp" />
+            <SearchIcon className="header__icon" />
+          </div>
         </div>
         <ul className="header__nav">
           <li>
@@ -73,13 +81,62 @@ function Header() {
         </ul>
       </div>
       <div className="header__navigation">
-        <p className="header__navbuttons">PC</p>
-        <p className="header__navbuttons">Components</p>
-        <p className="header__navbuttons">Laptops</p>
-        <p className="header__navbuttons">Consoles</p>
-        <p className="header__navbuttons">Monitors</p>
-        <p className="header__navbuttons">Peripherals</p>
-        <p className="header__navbuttons">Accessories</p>
+        <p
+          onClick={(e) => {
+            setCategory("PC");
+          }}
+          className="header__navbuttons"
+        >
+          PC
+        </p>
+        <p
+          onClick={(e) => {
+            setCategory("Components");
+          }}
+          className="header__navbuttons"
+        >
+          Components
+        </p>
+        <p
+          onClick={(e) => {
+            setCategory("Laptops");
+          }}
+          className="header__navbuttons"
+        >
+          Laptops
+        </p>
+        <p
+          onClick={(e) => {
+            setCategory("Consoles");
+          }}
+          className="header__navbuttons"
+        >
+          Consoles
+        </p>
+        <p
+          onClick={(e) => {
+            setCategory("Monitors");
+          }}
+          className="header__navbuttons"
+        >
+          Monitors
+        </p>
+        <p
+          onClick={(e) => {
+            setCategory("Peripherals");
+          }}
+          className="header__navbuttons"
+        >
+          Peripherals
+        </p>
+        <p
+          onClick={(e) => {
+            setCategory("Accessories");
+          }}
+          className="header__navbuttons"
+        >
+          Accessories
+        </p>
       </div>
     </Fragment>
   );
