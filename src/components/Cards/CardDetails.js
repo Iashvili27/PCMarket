@@ -2,7 +2,8 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useDataContext } from "../../context/DataContext";
 import "./CardDetails.css";
-
+import "../Sceletons/ContentLoader.css";
+import ContentLoader from "../Sceletons/ContentLoader";
 function CardDetails() {
   const { items } = useDataContext();
   let { id } = useParams();
@@ -43,8 +44,8 @@ function CardDetails() {
           </div>
         </div>
       ) : (
-        <div>
-          <h3>Loading.. please wait.</h3>
+        <div className="contentLoader">
+          <ContentLoader />
         </div>
       )}
     </div>

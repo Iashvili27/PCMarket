@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const Card = ({ page }) => {
   const { items } = useDataContext();
   const { search, category } = useSearchContext();
-
+  const IsLoading = useState(false);
   return (
     <div className="cardfragment">
       {category ? <h3>{category}</h3> : null}
