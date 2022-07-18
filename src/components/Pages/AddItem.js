@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDataContext } from "../../context/DataContext";
 import "./Additem.css";
 import { useNavigate } from "react-router-dom";
@@ -15,16 +15,26 @@ function AddItem() {
     setSellerName,
     setTitle,
     changeHandler,
-    setImageUrl,
+    setImageUpload,
+    uploadImage,
+    imageuploaddone,
+    setImageUploadDone,
+    imageUpload,
+    imageurl,
   } = useDataContext();
 
-  const submitHandler = () => {
+  const submitHandler = (e) => {
     changeHandler();
+    uploadImage();
     setItemAdded(true);
     setTimeout(() => {
       navigate(`/`);
-    }, 3000);
+    }, 4000);
   };
+
+  useEffect(() => {
+    setImageUploadDone(false);
+  }, []);
 
   return (
     <>
@@ -53,6 +63,7 @@ function AddItem() {
             <div className="additem-title">
               <h3>Enter title for item</h3>
               <input
+                className="additem-input"
                 onChange={(e) => setTitle(e.target.value)}
                 name="title"
                 type="text"
@@ -61,6 +72,7 @@ function AddItem() {
             <div className="additem-sellername">
               <h3>Enter your name here</h3>
               <input
+                className="additem-input"
                 onChange={(e) => setSellerName(e.target.value)}
                 name="name"
                 type="text"
@@ -69,6 +81,7 @@ function AddItem() {
             <div className="additem-phone">
               <h3>Enter your phone number</h3>
               <input
+                className="additem-input"
                 onChange={(e) => setContactNumber(e.target.value)}
                 name="phonenumber"
                 type="text"
@@ -77,22 +90,45 @@ function AddItem() {
             <div className="additem-price">
               <h3>Enter item price</h3>
               <input
+                className="additem-input"
                 onChange={(e) => setPrice(e.target.value)}
                 name="price"
                 type="text"
               />
             </div>
             <div className="additem-image">
-              <h3>Enter image url here</h3>
-              <input
-                onChange={(e) => setImageUrl(e.target.value)}
-                name="desc"
-                type="text"
-              />
+              <h3>Upload item image</h3>
+              {imageuploaddone ? (
+                <div>
+                  <div>
+                    <img className="uploadedimage" src={imageurl}></img>
+                  </div>
+                  {imageuploaddone}
+                </div>
+              ) : null}
+              <label>
+                <input
+                  hidden
+                  className="add-item-image-input"
+                  onChange={(e) => setImageUpload(e.target.files[0])}
+                  accept=".png, .jpg, .jpeg"
+                  name="desc"
+                  type="file"
+                />
+              </label>
+
+              <button
+                className="upload--button"
+                type="button"
+                onClick={uploadImage}
+              >
+                Upload
+              </button>
             </div>
             <div className="additem-desc">
               <h3>Write item description</h3>
               <input
+                className="additem-input"
                 onChange={(e) => setDescription(e.target.value)}
                 name="desc"
                 type="text"

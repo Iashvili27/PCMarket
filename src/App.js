@@ -8,6 +8,7 @@ import Contact from "./components/Pages/Contact";
 import Signup from "./components/Pages/Signup";
 import Bottom from "./components/Navigation/Bottom";
 import CardDetails from "./components/Cards/CardDetails";
+import Preferences from "./components/Pages/Preferences";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/signup" element={<Signup />}></Route>
             <Route path="/additem" element={<AddItem />}></Route>
+            <Route path="/preferences" element={<Preferences />}></Route>
             <Route path="/contact" element={<Contact />}></Route>
           </Routes>
         </div>

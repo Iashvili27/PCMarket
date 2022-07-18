@@ -73,7 +73,7 @@ function Header() {
                   <Link className="header__navl" to="/additem">
                     Add Item +
                   </Link>
-                  <Link className="header__navl" to="/Preferences">
+                  <Link className="header__navl" to="/preferences">
                     Preferences
                   </Link>
                   <Link
