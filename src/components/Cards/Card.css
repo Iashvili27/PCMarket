@@ -76,17 +76,8 @@
 }
 
 .card-image {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  margin: auto;
   object-fit: cover;
+  width: 200px;
+  height: 200px;
   border-radius: 1rem;
-}
-
-.cardimg {
-  width: auto;
-  height: auto;
-  margin: auto;
 }

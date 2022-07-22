@@ -19,7 +19,6 @@ function AddItem() {
     uploadImage,
     imageuploaddone,
     setImageUploadDone,
-    imageUpload,
     imageurl,
   } = useDataContext();
 
@@ -34,6 +33,7 @@ function AddItem() {
 
   useEffect(() => {
     setImageUploadDone(false);
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -101,7 +101,11 @@ function AddItem() {
               {imageuploaddone ? (
                 <div>
                   <div>
-                    <img className="uploadedimage" src={imageurl}></img>
+                    <img
+                      alt="img"
+                      className="uploadedimage"
+                      src={imageurl}
+                    ></img>
                   </div>
                   {imageuploaddone}
                 </div>

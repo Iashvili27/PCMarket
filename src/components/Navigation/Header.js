@@ -6,10 +6,12 @@ import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
 import { useSearchContext } from "../../context/SearchContext";
+import { useDataContext } from "../../context/DataContext";
 
 function Header() {
   const { user, logOut } = useUserAuth();
   const { searchHandler, setCategory } = useSearchContext();
+  const { userdata } = useDataContext();
   const [inputValue, setInputValue] = useState("");
 
   const handleLogOut = async () => {
@@ -30,6 +32,8 @@ function Header() {
     event.preventDefault();
     searchHandler(inputValue);
   };
+
+  console.log(userdata);
 
   return (
     <Fragment>
@@ -64,11 +68,11 @@ function Header() {
             </Link>
           </li>
 
-          {user ? (
+          {user && userdata ? (
             <li>
               <div className="dropdown">
-                <p className="header__navlinkuser">{user.email}</p>
-                <p className="header__navlink">{user.email}</p>
+                <p className="header__navlinkuser">{userdata.username}</p>
+                <p className="header__navlink">{userdata.username}</p>
                 <div className="dropdown-content">
                   <Link className="header__navl" to="/additem">
                     Add Item +

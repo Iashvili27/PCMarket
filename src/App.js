@@ -9,6 +9,7 @@ import Signup from "./components/Pages/Signup";
 import Bottom from "./components/Navigation/Bottom";
 import CardDetails from "./components/Cards/CardDetails";
 import Preferences from "./components/Pages/Preferences";
+import { useDataContext } from "./context/DataContext";
 
 function App() {
   return (

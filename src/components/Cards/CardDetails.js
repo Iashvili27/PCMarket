@@ -8,6 +8,8 @@ function CardDetails() {
   const { items } = useDataContext();
   let { id } = useParams();
 
+  const filterItems = items.filter((item) => item.uuid === id);
+
   return (
     <div className="carddetails-container">
       {items.length > 0 ? (
@@ -16,30 +18,30 @@ function CardDetails() {
             <img
               className="carddetails-image"
               alt="item"
-              src={`${items[id].imageurl}`}
+              src={`${filterItems[0].imageurl}`}
             ></img>
           </div>
           <div className="carddetails-description">
             <p>
               <span>Item Name : </span>
-              {items[id].title}
+              {filterItems[0].title}
             </p>
             <p>
               <span>Description : </span>
-              {items[id].description}
+              {filterItems[0].description}
             </p>
             <p>
               <span>Price : </span>
-              {items[id].price}.00 GEL
+              {filterItems[0].price}.00 GEL
             </p>
             <p>
               <span>Seller Number : </span>
-              {items[id].contactnumber}
+              {filterItems[0].contactnumber}
             </p>
 
             <p>
               <span>Seller Name : </span>
-              {items[id].sellername}
+              {filterItems[0].sellername}
             </p>
           </div>
         </div>

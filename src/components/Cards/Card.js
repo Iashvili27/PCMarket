@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Card.css";
 import { useDataContext } from "../../context/DataContext";
 import { useSearchContext } from "../../context/SearchContext";
@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const Card = ({ page }) => {
   const { items } = useDataContext();
   const { search, category } = useSearchContext();
-  const IsLoading = useState(false);
+  console.log(items);
   return (
     <div className="cardfragment">
       {category ? <h3>{category}</h3> : null}
@@ -35,7 +35,7 @@ const Card = ({ page }) => {
             // } else return null;
           })
           .map((item, index) => (
-            <Link to={`${page}${index}`} className="card" key={item.uuid}>
+            <Link to={`${page}${item.uuid}`} className="card" key={item.uuid}>
               <div className="cardimg">
                 <img
                   className="card-image"
