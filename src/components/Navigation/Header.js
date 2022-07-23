@@ -74,8 +74,8 @@ function Header() {
                   <Link className="header__navl" to="/additem">
                     Add Item +
                   </Link>
-                  <Link className="header__navl" to="/mypage">
-                    My Page
+                  <Link className="header__navl" to="/myproducts">
+                    My Products
                   </Link>
                   <Link
                     onClick={handleLogOut}

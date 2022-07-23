@@ -9,6 +9,8 @@ import Signup from "./components/Pages/Signup";
 import Bottom from "./components/Navigation/Bottom";
 import CardDetails from "./components/Cards/CardDetails";
 import UserPage from "./components/Pages/UserPage";
+import UserItems from "./components/Cards/UserItems";
+import Options from "./components/Cards/Options";
 import { useDataContext } from "./context/DataContext";
 
 function App() {
@@ -23,7 +25,10 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/signup" element={<Signup />}></Route>
             <Route path="/additem" element={<AddItem />}></Route>
-            <Route path="/mypage" element={<UserPage />}></Route>
+            <Route path="/" element={<UserPage />}>
+              <Route path="myproducts" element={<UserItems />} />
+              <Route path="options" element={<Options />} />
+            </Route>
             <Route path="/contact" element={<Contact />}></Route>
           </Routes>
         </div>
