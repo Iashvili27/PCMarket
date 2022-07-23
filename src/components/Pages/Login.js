@@ -10,7 +10,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { logIn, googleSignIn } = useUserAuth();
+  const { logIn, googleSignIn, user } = useUserAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -36,34 +36,43 @@ const Login = () => {
 
   return (
     <div className="login-body">
-      <div className="login-container">
-        <div className="p-4-box">
-          <h2>Login</h2>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form className="form-class" onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Control
-                type="email"
-                placeholder="Email address"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </Form.Group>
+      {user ? (
+        <div>
+          <h3>Your are already logged in</h3>
+        </div>
+      ) : (
+        <div className="login-container">
+          <div className="p-4-box">
+            <h2>Login</h2>
+            {error && <Alert variant="danger">{error}</Alert>}
+            <Form className="form-class" onSubmit={handleSubmit}>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Control
+                  type="email"
+                  placeholder="Email address"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Form.Group>
 
-            <div className="d-grid">
-              <Button className="d-grid-button" variant="primary" type="Submit">
-                Log In
-              </Button>
-            </div>
-          </Form>
-          {/* 
+              <div className="d-grid">
+                <Button
+                  className="d-grid-button"
+                  variant="primary"
+                  type="Submit"
+                >
+                  Log In
+                </Button>
+              </div>
+            </Form>
+            {/* 
           <div>
             <GoogleButton
               className="g-btn"
@@ -71,11 +80,12 @@ const Login = () => {
               onClick={handleGoogleSignIn}
             />
           </div> */}
+          </div>
+          <div className="p-4 box mt-3 text-center">
+            Don't have an account? <Link to="/signup">Sign up</Link>
+          </div>
         </div>
-        <div className="p-4 box mt-3 text-center">
-          Don't have an account? <Link to="/signup">Sign up</Link>
-        </div>
-      </div>
+      )}
     </div>
   );
 };

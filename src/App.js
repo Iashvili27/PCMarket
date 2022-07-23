@@ -8,7 +8,7 @@ import Contact from "./components/Pages/Contact";
 import Signup from "./components/Pages/Signup";
 import Bottom from "./components/Navigation/Bottom";
 import CardDetails from "./components/Cards/CardDetails";
-import Preferences from "./components/Pages/Preferences";
+import UserPage from "./components/Pages/UserPage";
 import { useDataContext } from "./context/DataContext";
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/signup" element={<Signup />}></Route>
             <Route path="/additem" element={<AddItem />}></Route>
-            <Route path="/preferences" element={<Preferences />}></Route>
+            <Route path="/mypage" element={<UserPage />}></Route>
             <Route path="/contact" element={<Contact />}></Route>
           </Routes>
         </div>

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./Header.css";
 import SearchIcon from "@mui/icons-material/Search";
-// import AddIcon from "@mui/icons-material/Add";
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
@@ -32,8 +31,6 @@ function Header() {
     event.preventDefault();
     searchHandler(inputValue);
   };
-
-  console.log(userdata);
 
   return (
     <Fragment>
@@ -77,8 +74,8 @@ function Header() {
                   <Link className="header__navl" to="/additem">
                     Add Item +
                   </Link>
-                  <Link className="header__navl" to="/preferences">
-                    Preferences
+                  <Link className="header__navl" to="/mypage">
+                    My Page
                   </Link>
                   <Link
                     onClick={handleLogOut}

@@ -24,7 +24,6 @@ function AddItem() {
 
   const submitHandler = (e) => {
     changeHandler();
-    uploadImage();
     setItemAdded(true);
     setTimeout(() => {
       navigate(`/`);
