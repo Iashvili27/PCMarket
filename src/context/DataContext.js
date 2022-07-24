@@ -12,9 +12,8 @@ import {
   where,
   getDocs,
   getDoc,
-  onSnapshot,
+  deleteDoc,
   collectionGroup,
-  limit,
 } from "firebase/firestore";
 import {
   ref as storageref,
@@ -22,6 +21,7 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { useUserAuth } from "./UserAuthContext";
+import { ContentPasteGoOutlined } from "@mui/icons-material";
 
 const dataContext = createContext();
 
@@ -127,8 +127,23 @@ export function DataContextProvider({ children }) {
     writeToDatabase();
   };
 
+  const deleteItemFromDatabase = (item) => {
+    if (user && user.email) {
+      const docRef = doc(storedb, "users", `${user.email}`);
+      const getCol = collection(docRef, "items");
+      const q = query(getCol, where("uuid", "==", item));
+      const docSnap = getDocs(q)
+        .then((collection) => {
+          collection.docs.forEach((doc) => deleteDoc(doc.ref));
+          console.log("item deleted");
+        })
+        .catch(function (error) {
+          console.log("Error getting documents: ", error);
+        });
+    }
+  };
   useEffect(() => {
-    //Get User Data
+    //Get User Items
     if (user && user.email) {
       const docRef = doc(storedb, "users", `${user.email}`);
       const getCol = collection(docRef, "items");
@@ -137,39 +152,22 @@ export function DataContextProvider({ children }) {
       });
     }
 
-    //Get Current User Items
+    //Get Current User Data
     if (user && user.email) {
       const docRef = doc(storedb, "users", `${user.email}`);
       const docSnap = getDoc(docRef).then((doc) => {
         setUserData(doc.data());
       });
     }
-    // const useremailref = collection(storedb, "users");
-    // const q = query(
-    //   useremailref,
-    //   where("email", "==", "iashviligiorgi3@gmail.com")
-    // );
-    // const getquery = getDocs(q).then((collection) => {
-    //   console.log(collection.docs.map((doc) => doc.data()));
-    // });
 
-    const useremailref = collection(storedb, "items");
-    const q = query(useremailref, where("title", "==", "laptop"));
-    const getquery = getDocs(q).then((collection) => {
-      console.log(collection.docs.map((doc) => doc.data()));
-    });
-
-    // const filterItems = collectionGroup(storedb, "items");
-    // const filterData = query(filterItems, where("title", "==", "pc"));
-    // const getFilteredData = getDocs(filterData).then((collection) => {
-    //   console.log(collection.docs.map((doc) => doc.data()));
-    // });
     // Get All items for Main Page
     const itemsCollection = collectionGroup(storedb, "items");
     const data = getDocs(itemsCollection).then((collection) => {
       setItems(collection.docs.map((doc) => doc.data()));
     });
-  }, [user]);
+  }, [user, items.length]);
+
+  console.log(items);
 
   return (
     <dataContext.Provider
@@ -197,6 +195,7 @@ export function DataContextProvider({ children }) {
         imageUpload,
         userdata,
         useritems,
+        deleteItemFromDatabase,
       }}
     >
       {children}

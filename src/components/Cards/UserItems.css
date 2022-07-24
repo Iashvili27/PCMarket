@@ -40,7 +40,6 @@
   width: 80px;
   height: 20px;
   border: none;
-  background-color: white;
   justify-content: center;
   align-items: center;
   border-radius: 50px;
@@ -51,6 +50,23 @@
 
 .useritems-button button:hover {
   color: #cd9042;
+  cursor: pointer;
+}
+
+.useritems-buttondelete button {
+  width: 80px;
+  height: 20px;
+  border: none;
+  background-color: #a70000;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  color: white;
+  font-size: 12px;
+}
+
+.useritems-buttondelete button:hover {
+  background-color: #ff0000;
   cursor: pointer;
 }
 

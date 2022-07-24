@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Card.css";
 import { useDataContext } from "../../context/DataContext";
 import { useSearchContext } from "../../context/SearchContext";
@@ -7,7 +7,9 @@ import { Link } from "react-router-dom";
 const Card = ({ page }) => {
   const { items } = useDataContext();
   const { search, category } = useSearchContext();
+
   console.log(items);
+
   return (
     <div className="cardfragment">
       {category ? <h3>{category}</h3> : null}

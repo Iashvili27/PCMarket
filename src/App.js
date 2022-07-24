@@ -11,6 +11,7 @@ import CardDetails from "./components/Cards/CardDetails";
 import UserPage from "./components/Pages/UserPage";
 import UserItems from "./components/Cards/UserItems";
 import Options from "./components/Cards/Options";
+import EditItem from "./components/Cards/EditItem";
 import { useDataContext } from "./context/DataContext";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
             <Route path="/" element={<UserPage />}>
               <Route path="myproducts" element={<UserItems />} />
               <Route path="options" element={<Options />} />
+              <Route path="edititem:id" element={<EditItem />} />
             </Route>
             <Route path="/contact" element={<Contact />}></Route>
           </Routes>

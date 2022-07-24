@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDataContext } from "../../context/DataContext";
+import { Link } from "react-router-dom";
 import "./UserItems.css";
 
-function UserItems() {
-  const { useritems } = useDataContext();
+function UserItems(props) {
+  const { useritems, deleteItemFromDatabase } = useDataContext();
 
-  console.log(useritems);
+  const page = "/edititem";
 
   return (
     <div className="useritems-container">
@@ -26,8 +27,17 @@ function UserItems() {
                   <div className="useritems-price">
                     <p>{item.price} GEL</p>
                   </div>
-                  <div className="useritems-button">
-                    <button>EDIT</button>
+                  <div>
+                    <div className="useritems-button">
+                      <Link to={`${page}${item.uuid}`}>
+                        <button>EDIT</button>
+                      </Link>
+                    </div>
+                    <div className="useritems-buttondelete">
+                      <button onClick={() => deleteItemFromDatabase(item.uuid)}>
+                        DELETE
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
