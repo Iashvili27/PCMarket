@@ -32,7 +32,7 @@ function CardDetails() {
             </p>
             <p>
               <span>Price : </span>
-              {filterItems[0].price}.00 GEL
+              {filterItems[0].price} GEL
             </p>
             <p>
               <span>Seller Number : </span>
