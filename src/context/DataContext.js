@@ -1,11 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { db, storage, storedb } from "../firebase";
+import { storage, storedb } from "../firebase";
 import { uid } from "uid";
-import { set, ref, onValue } from "firebase/database";
 import {
   doc,
-  setDoc,
-  updateDoc,
   collection,
   addDoc,
   query,
@@ -19,9 +16,9 @@ import {
   ref as storageref,
   uploadBytesResumable,
   getDownloadURL,
+  deleteObject,
 } from "firebase/storage";
 import { useUserAuth } from "./UserAuthContext";
-import { ContentPasteGoOutlined } from "@mui/icons-material";
 
 const dataContext = createContext();
 
@@ -40,16 +37,17 @@ export function DataContextProvider({ children }) {
   const [items, setItems] = useState([]);
   const [userdata, setUserData] = useState([]);
   const [useritems, setUserItems] = useState([]);
+  const [uuid, setUuid] = useState(uid());
   const userUid = user ? user.uid : null;
 
   // User uploads image in Database
   const uploadImage = async () => {
     try {
-      const uuid = uid();
       if (imageUpload == null) return;
       const imageRef = storageref(
         storage,
-        `images/${uuid} + ${imageUpload.name}`
+        `images/${uuid}`
+        // + ${imageUpload.name}
       );
       const uploadTask = uploadBytesResumable(imageRef, imageUpload);
       uploadTask.on(
@@ -95,11 +93,9 @@ export function DataContextProvider({ children }) {
   const itemDateDay = itemDate.getDate();
   const itemDateMonth = months[itemDate.getMonth()];
   const date = `${itemDateDay}/${itemDateMonth}`;
-  //
 
-  // User adds item in database
+  // User Adds Item In Database
   const writeToDatabase = () => {
-    const uuid = uid();
     const docRef = doc(storedb, "users", user.email);
     const colRef = collection(docRef, "items");
     addDoc(colRef, {
@@ -114,6 +110,7 @@ export function DataContextProvider({ children }) {
       userUid,
       imageurl,
     });
+    setUuid(uid());
     setTitle("");
     setCategory("");
     setContactNumber("");
@@ -127,18 +124,31 @@ export function DataContextProvider({ children }) {
     writeToDatabase();
   };
 
+  // User Deletes Item From Database
+
   const deleteItemFromDatabase = (item) => {
     if (user && user.email) {
       const docRef = doc(storedb, "users", `${user.email}`);
       const getCol = collection(docRef, "items");
       const q = query(getCol, where("uuid", "==", item));
-      const docSnap = getDocs(q)
+      getDocs(q)
         .then((collection) => {
           collection.docs.forEach((doc) => deleteDoc(doc.ref));
           console.log("item deleted");
         })
         .catch(function (error) {
           console.log("Error getting documents: ", error);
+        });
+
+      // Delete the Image
+      const desertRef = storageref(storage, `images/${item}`);
+      deleteObject(desertRef)
+        .then(() => {
+          // File deleted successfully
+          console.log("image deleted");
+        })
+        .catch((error) => {
+          console.log(error);
         });
     }
   };
@@ -147,25 +157,37 @@ export function DataContextProvider({ children }) {
     if (user && user.email) {
       const docRef = doc(storedb, "users", `${user.email}`);
       const getCol = collection(docRef, "items");
-      const docSnap = getDocs(getCol).then((collection) => {
-        setUserItems(collection.docs.map((doc) => doc.data()));
-      });
+      getDocs(getCol)
+        .then((collection) => {
+          setUserItems(collection.docs.map((doc) => doc.data()));
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
 
     //Get Current User Data
     if (user && user.email) {
       const docRef = doc(storedb, "users", `${user.email}`);
-      const docSnap = getDoc(docRef).then((doc) => {
-        setUserData(doc.data());
-      });
+      getDoc(docRef)
+        .then((doc) => {
+          setUserData(doc.data());
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
 
     // Get All items for Main Page
     const itemsCollection = collectionGroup(storedb, "items");
-    const data = getDocs(itemsCollection).then((collection) => {
-      setItems(collection.docs.map((doc) => doc.data()));
-    });
-  }, [user, items.length]);
+    getDocs(itemsCollection)
+      .then((collection) => {
+        setItems(collection.docs.map((doc) => doc.data()));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [user]);
 
   console.log(items);
 
