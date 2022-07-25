@@ -41,6 +41,7 @@ export function DataContextProvider({ children }) {
   const userUid = user ? user.uid : null;
   // States for modal
   const [itemdeletedsucecsfully, setItemDeletedSuccesfully] = useState(false);
+  const [itemAddedSuccesfully, setItemAddedSuccesfully] = useState(false);
 
   // User uploads image in Database
   const uploadImage = async () => {
@@ -111,15 +112,21 @@ export function DataContextProvider({ children }) {
       title,
       userUid,
       imageurl,
-    });
-    setUuid(uid());
-    setTitle("");
-    setCategory("");
-    setContactNumber("");
-    setDescription("");
-    setPrice("");
-    setSellerName("");
-    setImageUrl("");
+    })
+      .then(() => {
+        setUuid(uid());
+        setTitle("");
+        setCategory("");
+        setContactNumber("");
+        setDescription("");
+        setPrice("");
+        setSellerName("");
+        setImageUrl("");
+        setItemAddedSuccesfully(true);
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
   };
 
   const changeHandler = () => {
@@ -222,6 +229,8 @@ export function DataContextProvider({ children }) {
         deleteItemFromDatabase,
         itemdeletedsucecsfully,
         setItemDeletedSuccesfully,
+        itemAddedSuccesfully,
+        setItemAddedSuccesfully,
       }}
     >
       {children}

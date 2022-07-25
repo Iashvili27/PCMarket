@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import Modal from "../Modal/Modal";
 import "./UserItems.css";
 
-function UserItems(props) {
-  const { useritems, deleteItemFromDatabase } = useDataContext();
+function UserItems() {
+  const { useritems } = useDataContext();
   const [openModal, setOpenModal] = useState(false);
   const [modalData, setModalData] = useState(null);
 
