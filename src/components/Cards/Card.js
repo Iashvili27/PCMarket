@@ -50,7 +50,7 @@ const Card = ({ page }) => {
                   <p>{item.title}</p>
                 </div>
                 <div className="cardprice">
-                  {item.price ? <p>{item.price}.00 GEL</p> : <p>OFFER</p>}
+                  {item.price ? <p>{item.price} GEL</p> : <p>OFFER</p>}
                 </div>
               </div>
             </Link>

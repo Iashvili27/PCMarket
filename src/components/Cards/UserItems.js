@@ -1,10 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { useDataContext } from "../../context/DataContext";
 import { Link } from "react-router-dom";
+import Modal from "../Modal/Modal";
 import "./UserItems.css";
 
 function UserItems(props) {
   const { useritems, deleteItemFromDatabase } = useDataContext();
+  const [openModal, setOpenModal] = useState(false);
+  const [modalData, setModalData] = useState(null);
 
   const page = "/edititem";
 
@@ -34,7 +37,12 @@ function UserItems(props) {
                       </Link>
                     </div>
                     <div className="useritems-buttondelete">
-                      <button onClick={() => deleteItemFromDatabase(item.uuid)}>
+                      <button
+                        onClick={() => {
+                          setModalData(item.uuid);
+                          setOpenModal(true);
+                        }}
+                      >
                         DELETE
                       </button>
                     </div>
@@ -49,6 +57,7 @@ function UserItems(props) {
           <p>You dont have any items</p>
         </div>
       )}
+      {openModal && <Modal itemuid={modalData} closeModal={setOpenModal} />}
     </div>
   );
 }

@@ -39,6 +39,8 @@ export function DataContextProvider({ children }) {
   const [useritems, setUserItems] = useState([]);
   const [uuid, setUuid] = useState(uid());
   const userUid = user ? user.uid : null;
+  // States for modal
+  const [itemdeletedsucecsfully, setItemDeletedSuccesfully] = useState(false);
 
   // User uploads image in Database
   const uploadImage = async () => {
@@ -134,7 +136,7 @@ export function DataContextProvider({ children }) {
       getDocs(q)
         .then((collection) => {
           collection.docs.forEach((doc) => deleteDoc(doc.ref));
-          console.log("item deleted");
+          setItemDeletedSuccesfully(true);
         })
         .catch(function (error) {
           console.log("Error getting documents: ", error);
@@ -145,7 +147,7 @@ export function DataContextProvider({ children }) {
       deleteObject(desertRef)
         .then(() => {
           // File deleted successfully
-          console.log("image deleted");
+          setItemDeletedSuccesfully(true);
         })
         .catch((error) => {
           console.log(error);
@@ -218,6 +220,8 @@ export function DataContextProvider({ children }) {
         userdata,
         useritems,
         deleteItemFromDatabase,
+        itemdeletedsucecsfully,
+        setItemDeletedSuccesfully,
       }}
     >
       {children}
