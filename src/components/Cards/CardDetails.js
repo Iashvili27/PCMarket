@@ -4,6 +4,7 @@ import { useDataContext } from "../../context/DataContext";
 import "./CardDetails.css";
 import "../Sceletons/ContentLoader.css";
 import ContentLoader from "../Sceletons/ContentLoader";
+import MyImage from "../../Assets/DefaultImage.png";
 function CardDetails() {
   const { items } = useDataContext();
   let { id } = useParams();
@@ -15,11 +16,15 @@ function CardDetails() {
       {items.length > 0 ? (
         <div className="carddetails-itempage">
           <div className="carddetails-image-container">
-            <img
-              className="carddetails-image"
-              alt="item"
-              src={`${filterItems[0].imageurl}`}
-            ></img>
+            {filterItems[0].imageurl ? (
+              <img
+                className="card-image"
+                alt="img"
+                src={`${filterItems[0].imageurl}`}
+              />
+            ) : (
+              <img className="card-image" alt="img" src={MyImage} />
+            )}
           </div>
           <div className="carddetails-description">
             <p>

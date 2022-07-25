@@ -11,6 +11,7 @@ import {
   getDoc,
   deleteDoc,
   collectionGroup,
+  updateDoc,
 } from "firebase/firestore";
 import {
   ref as storageref,
@@ -42,6 +43,7 @@ export function DataContextProvider({ children }) {
   // States for modal
   const [itemdeletedsucecsfully, setItemDeletedSuccesfully] = useState(false);
   const [itemAddedSuccesfully, setItemAddedSuccesfully] = useState(false);
+  // Item View Counter
 
   // User uploads image in Database
   const uploadImage = async () => {
@@ -112,6 +114,7 @@ export function DataContextProvider({ children }) {
       title,
       userUid,
       imageurl,
+      views: 0,
     })
       .then(() => {
         setUuid(uid());
@@ -131,6 +134,33 @@ export function DataContextProvider({ children }) {
 
   const changeHandler = () => {
     writeToDatabase();
+  };
+
+  // After click on item views are adding in firebase
+
+  const addViewsToDatabase = (uuid, view) => {
+    const viewPlus = view + 1;
+    const itemsCollection = collectionGroup(storedb, "items");
+    const q = query(itemsCollection, where("uuid", "==", uuid));
+    getDocs(q)
+      .then((collection) => {
+        collection.docs.forEach((doc) =>
+          updateDoc(doc.ref, { views: viewPlus })
+        );
+      })
+      .catch(function (error) {
+        console.log("Error getting documents: ", error);
+      });
+
+    // updateDoc(updateDocs, {
+    //   Views: 10,
+    // })
+    //   .then(() => {
+    //     console.log("updated");
+    //   })
+    //   .catch(function (error) {
+    //     console.log("Error getting documents: ", error);
+    //   });
   };
 
   // User Deletes Item From Database
@@ -231,6 +261,7 @@ export function DataContextProvider({ children }) {
         setItemDeletedSuccesfully,
         itemAddedSuccesfully,
         setItemAddedSuccesfully,
+        addViewsToDatabase,
       }}
     >
       {children}

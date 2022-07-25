@@ -3,6 +3,7 @@ import { useDataContext } from "../../context/DataContext";
 import { Link } from "react-router-dom";
 import Modal from "../Modal/Modal";
 import "./UserItems.css";
+import MyImage from "../../Assets/DefaultImage.png";
 
 function UserItems() {
   const { useritems } = useDataContext();
@@ -25,7 +26,18 @@ function UserItems() {
                 </div>
                 <div className="useritems-desc">
                   <div className="useritems-image">
-                    <img alt="img" src={item.imageurl}></img>
+                    {item.imageurl ? (
+                      <img
+                        className="card-image"
+                        alt="img"
+                        src={`${item.imageurl}`}
+                      />
+                    ) : (
+                      <img className="card-image" alt="img" src={MyImage} />
+                    )}
+                  </div>
+                  <div className="useritems-price">
+                    <p>Views : {item.views}</p>
                   </div>
                   <div className="useritems-price">
                     <p>{item.price} GEL</p>
