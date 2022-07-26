@@ -43,7 +43,6 @@ export function DataContextProvider({ children }) {
   // States for modal
   const [itemdeletedsucecsfully, setItemDeletedSuccesfully] = useState(false);
   const [itemAddedSuccesfully, setItemAddedSuccesfully] = useState(false);
-  // Item View Counter
 
   // User uploads image in Database
   const uploadImage = async () => {

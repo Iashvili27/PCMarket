@@ -1,0 +1,7 @@
+.container {
+  display: flex;
+  min-height: 800px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: row;
+}

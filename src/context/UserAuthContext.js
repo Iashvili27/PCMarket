@@ -23,7 +23,9 @@ export function UserAuthContextProvider({ children }) {
     return signInWithEmailAndPassword(auth, email, password);
   }
   function signUp(email, password) {
-    return createUserWithEmailAndPassword(auth, email, password);
+    return createUserWithEmailAndPassword(auth, email, password).then(() =>
+      sendEmailVerification(auth.currentUser)
+    );
   }
   function logOut() {
     return signOut(auth);
@@ -46,7 +48,14 @@ export function UserAuthContextProvider({ children }) {
 
   return (
     <userAuthContext.Provider
-      value={{ user, logIn, signUp, logOut, googleSignIn, emailVerification }}
+      value={{
+        user,
+        logIn,
+        signUp,
+        logOut,
+        googleSignIn,
+        emailVerification,
+      }}
     >
       {children}
     </userAuthContext.Provider>

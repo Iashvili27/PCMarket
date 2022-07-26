@@ -12,6 +12,7 @@ import UserPage from "./components/Pages/UserPage";
 import UserItems from "./components/Cards/UserItems";
 import Options from "./components/Cards/Options";
 import EditItem from "./components/Cards/EditItem";
+import EmailVerifyPage from "./components/Pages/EmailVerifyPage";
 import { useDataContext } from "./context/DataContext";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/signup" element={<Signup />}></Route>
             <Route path="/additem" element={<AddItem />}></Route>
+            <Route path="/verify" element={<EmailVerifyPage />}></Route>
             <Route path="/" element={<UserPage />}>
               <Route path="myproducts" element={<UserItems />} />
               <Route path="options" element={<Options />} />

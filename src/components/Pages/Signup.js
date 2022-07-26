@@ -1,122 +1,86 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Form, Alert } from "react-bootstrap";
-import { Button } from "react-bootstrap";
+import { Formik, Form } from "formik";
+import { TextField } from "./TextField";
+import * as Yup from "yup";
 import { useUserAuth } from "../../context/UserAuthContext";
-import "./Signup.css";
-import { db, storedb } from "../../firebase";
-import { set, ref, onValue } from "firebase/database";
-import { doc, collection, setDoc } from "firebase/firestore";
+import { storedb } from "../../firebase";
+import { doc, setDoc } from "firebase/firestore";
 import { auth } from "../../firebase";
+import { useNavigate } from "react-router-dom";
 
-const Signup = () => {
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
-  const [secpassword, setSecPassword] = useState("");
-  const { signUp, emailVerification, user } = useUserAuth();
-  let navigate = useNavigate();
-  console.log(auth);
-  const handleSubmit = async (e) => {
-    if (password === secpassword) {
-      e.preventDefault();
-      setError("");
-      try {
-        await signUp(email, password);
-        // set(ref(db, "users/"), {
-        //   username: username,
-        //   email: email,
-        //   userid: auth.currentUser.uid,
-        // });
-        // await addDoc(collection(storedb, "users"), {
-        //   username: username,
-        //   email: email,
-        //   userid: auth.currentUser.uid,
-        // });
-        await setDoc(doc(storedb, "users", `${email}`), {
-          username: username,
-          email: email,
-          userid: auth.currentUser.uid,
-        });
-        navigate("/");
-      } catch (err) {
-        setError(err.message);
+export const Signup = () => {
+  const { user, signUp } = useUserAuth();
+  const navigate = useNavigate();
+  const validate = Yup.object({
+    firstName: Yup.string()
+      .max(15, "Must be 15 characters or less")
+      .required("Required"),
+    lastName: Yup.string()
+      .max(20, "Must be 20 characters or less")
+      .required("Required"),
+    email: Yup.string().email("Email is invalid").required("Email is required"),
+    password: Yup.string()
+      .min(6, "Password must be at least 6 charaters")
+      .required("Password is required"),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password"), null], "Password must match")
+      .required("Confirm password is required"),
+  });
+
+  const handleSubmit = async (values) => {
+    try {
+      await signUp(values.email, values.password);
+      setDoc(doc(storedb, "users", `${values.email}`), {
+        firstname: values.firstName,
+        lastname: values.lastName,
+        email: values.email,
+        userid: auth.currentUser.uid,
+      });
+      if (auth.currentUser) {
+        navigate("/verify");
       }
-    } else {
-      e.preventDefault();
-      setError("Password are not same");
+    } catch (err) {
+      console.log(err);
     }
   };
 
-  const emailVerify = async () => {
-    emailVerification().then(() => {
-      console.log("verified");
-    });
-  };
-
-  console.log(user);
-
   return (
-    <div className="signup-body">
-      {user ? (
+    <Formik
+      initialValues={{
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      }}
+      validationSchema={validate}
+      onSubmit={(values) => {
+        handleSubmit(values);
+      }}
+    >
+      {(formik) => (
         <div>
-          <h3>You are already logged in</h3>
-        </div>
-      ) : (
-        <div className="signup-container">
-          <h2>Register</h2>
-          <div className="signup-p-4-box">
-            {error && <Alert variant="danger">{error}</Alert>}
-            <Form className="signup-form-class" onSubmit={handleSubmit}>
-              <Form.Group className="signup-mb-3" controlId="formBasicUsername">
-                <Form.Control
-                  type="name"
-                  placeholder="Username"
-                  onChange={(e) => setUsername(e.target.value)}
-                />
-              </Form.Group>
-              <Form.Group className="signup-mb-3" controlId="formBasicEmail">
-                <Form.Control
-                  type="email"
-                  placeholder="Email address"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </Form.Group>
-
-              <Form.Group className="signup-mb-3" controlId="formBasicPassword">
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </Form.Group>
-              <Form.Group className="signup-mb-3" controlId="formBasicPassword">
-                <Form.Control
-                  type="password"
-                  placeholder="Repeat Password"
-                  onChange={(e) => setSecPassword(e.target.value)}
-                />
-              </Form.Group>
-
-              <div className="signup-d-grid">
-                <Button
-                  className="signup-d-grid-button"
-                  variant="primary"
-                  type="Submit"
-                >
-                  Sign up
-                </Button>
-              </div>
-            </Form>
-          </div>
-          <div className="signup-p-4 box mt-3 text-center">
-            Already have an account? <Link to="/login">Log In</Link>
-          </div>
-          {/* <button onClick={emailVerify}>verufy</button> */}
+          <h1 className="my-4 font-weight-bold .display-4">Sign Up</h1>
+          <Form>
+            <TextField label="First Name" name="firstName" type="text" />
+            <TextField label="last Name" name="lastName" type="text" />
+            <TextField label="Email" name="email" type="email" />
+            <TextField label="password" name="password" type="password" />
+            <TextField
+              label="Confirm Password"
+              name="confirmPassword"
+              type="password"
+            />
+            <button className="btn btn-dark mt-3" type="submit">
+              Register
+            </button>
+            <button className="btn btn-danger mt-3 ml-3" type="reset">
+              Reset
+            </button>
+          </Form>
         </div>
       )}
-    </div>
+    </Formik>
   );
 };
 

@@ -1,92 +1,59 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Form, Alert } from "react-bootstrap";
-import { Button } from "react-bootstrap";
-import GoogleButton from "react-google-button";
+import React from "react";
+import { Formik, Form } from "formik";
+import { TextField } from "./TextField";
+import * as Yup from "yup";
 import { useUserAuth } from "../../context/UserAuthContext";
 import "./Login.css";
+import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const { logIn, googleSignIn, user } = useUserAuth();
+export const Login = () => {
+  const { logIn } = useUserAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
+  const validate = Yup.object({
+    email: Yup.string().email("Email is invalid").required("Email is required"),
+    password: Yup.string()
+      .min(6, "Password must be at least 6 charaters")
+      .required("Password is required"),
+  });
+
+  const handleSubmit = async (values) => {
     try {
-      await logIn(email, password);
-      navigate("/");
+      await logIn(values.email, values.password);
     } catch (err) {
-      setError("Wrong Email or Password");
+      console.log(err);
     }
   };
-
-  const handleGoogleSignIn = async (e) => {
-    e.preventDefault();
-    try {
-      await googleSignIn();
-      navigate("/");
-    } catch (error) {
-      setError("Wrong Email or Password");
-    }
-  };
-
   return (
-    <div className="login-body">
-      {user ? (
+    <Formik
+      initialValues={{
+        email: "",
+        password: "",
+      }}
+      validationSchema={validate}
+      onSubmit={(values) => {
+        handleSubmit(values);
+      }}
+    >
+      {(formik) => (
         <div>
-          <h3>Your are already logged in</h3>
-        </div>
-      ) : (
-        <div className="login-container">
-          <div className="p-4-box">
-            <h2>Login</h2>
-            {error && <Alert variant="danger">{error}</Alert>}
-            <Form className="form-class" onSubmit={handleSubmit}>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Control
-                  type="email"
-                  placeholder="Email address"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </Form.Group>
-
-              <div className="d-grid">
-                <Button
-                  className="d-grid-button"
-                  variant="primary"
-                  type="Submit"
-                >
-                  Log In
-                </Button>
-              </div>
-            </Form>
-            {/* 
-          <div>
-            <GoogleButton
-              className="g-btn"
-              type="dark"
-              onClick={handleGoogleSignIn}
-            />
-          </div> */}
-          </div>
-          <div className="p-4 box mt-3 text-center">
-            Don't have an account? <Link to="/signup">Sign up</Link>
-          </div>
+          <h1 className="my-4 font-weight-bold .display-4">Login</h1>
+          <Form>
+            <TextField label="Email" name="email" type="email" />
+            <TextField label="password" name="password" type="password" />
+            <button className="btn btn-dark mt-3" type="submit">
+              Login
+            </button>
+            <button className="btn btn-danger mt-3 ml-3" type="reset">
+              Reset
+            </button>
+            <div className="p-4 box mt-3 text-center">
+              Don't have an account? <Link to="/signup">Sign up</Link>
+            </div>
+          </Form>
         </div>
       )}
-    </div>
+    </Formik>
   );
 };
 

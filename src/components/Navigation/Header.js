@@ -68,8 +68,8 @@ function Header() {
           {user && userdata ? (
             <li>
               <div className="dropdown">
-                <p className="header__navlinkuser">{userdata.username}</p>
-                <p className="header__navlink">{userdata.username}</p>
+                <p className="header__navlinkuser">{userdata.firstname}</p>
+                <p className="header__navlink">{userdata.firstname}</p>
                 <div className="dropdown-content">
                   <Link className="header__navl" to="/additem">
                     Add Item +
