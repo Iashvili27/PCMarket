@@ -3,13 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
 import { auth } from "../../firebase";
 import CardLoader from "../Sceletons/CardLoader";
+import "./EmailVerifyPage.css";
 
 function EmailVerifyPage(props) {
   const { signUp, user, emailVerification } = useUserAuth();
   const [emailVerify, setEmailVerify] = useState(false);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  console.log(auth);
+  console.log(user);
   // const emailVerify = async () => {
   //   emailVerification().then(() => {
   //     console.log("verified");
@@ -42,21 +43,15 @@ function EmailVerifyPage(props) {
         </div>
       ) : (
         <div className="verifycontainer">
-          <div className="verifyBackground" />
           {emailVerify === false ? (
-            <div className="verifycontainer">
-              <div className="verifyCloseBtn">
-                <button>X</button>
-              </div>
-              <div className="verifytitle">
-                <h3>Item Succesfully Added.</h3>
-              </div>
-              <div className="verifyfooter">
-                <button>Ok</button>
-              </div>
+            <div className="verifycard">
+              <h3>{`Verification link has been sent to ${user.email}`}</h3>
+              <p>Check your email and spam folder..</p>
+              <p>If you have not received link send another one</p>
+              <button>Resend</button>
             </div>
           ) : (
-            <div>you already verified</div>
+            <h1>Your account is verified</h1>
           )}
         </div>
       )}

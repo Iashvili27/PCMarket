@@ -36,21 +36,39 @@ export const Login = () => {
       }}
     >
       {(formik) => (
-        <div>
-          <h1 className="my-4 font-weight-bold .display-4">Login</h1>
-          <Form>
-            <TextField label="Email" name="email" type="email" />
-            <TextField label="password" name="password" type="password" />
-            <button className="btn btn-dark mt-3" type="submit">
-              Login
-            </button>
-            <button className="btn btn-danger mt-3 ml-3" type="reset">
-              Reset
-            </button>
-            <div className="p-4 box mt-3 text-center">
-              Don't have an account? <Link to="/signup">Sign up</Link>
-            </div>
-          </Form>
+        <div className="login-body">
+          <div className="login-container">
+            <h1 className="login-h1">Login</h1>
+            <Form className="login-form">
+              <div className="login-card-inputs">
+                <TextField
+                  label="Email"
+                  holder={"user@mail.com"}
+                  name="email"
+                  type="email"
+                />
+                <TextField
+                  label="Password"
+                  styling={"logininp"}
+                  holder={"******"}
+                  name="password"
+                  type="password"
+                />
+              </div>
+              <div className="login-button">
+                <button type="submit">Login</button>
+              </div>
+              <div className="login-card-signup">
+                Don't have an account?
+                <Link
+                  style={{ color: "blue", textDecoration: "none" }}
+                  to="/signup"
+                >
+                  Sign up
+                </Link>
+              </div>
+            </Form>
+          </div>
         </div>
       )}
     </Formik>

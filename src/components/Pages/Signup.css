@@ -1,0 +1,47 @@
+.signup-body {
+  font-family: "BPG Arial";
+  color: #26262a;
+  display: flex;
+  min-height: 80vh;
+  flex-direction: column;
+  align-items: center;
+  min-width: 320px;
+  justify-content: center;
+}
+
+.signup-container {
+  min-height: 400px;
+  min-width: 320px;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  flex-direction: column;
+  border-radius: 1rem;
+  box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px -1px,
+    rgb(0 0 0 / 6%) 0px 2px 4px -1px;
+  justify-content: space-evenly;
+}
+
+.signup-button {
+  padding: 20px;
+}
+
+.signup-button button {
+  border: none;
+  color: white;
+  background-color: black;
+  width: 200px;
+  height: 35px;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.signup-button button:hover {
+  color: #cd9042;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

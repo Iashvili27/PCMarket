@@ -1,0 +1,33 @@
+.verifycontainer {
+  display: flex;
+  min-height: 80vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.verifycard {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.verifycard h3 {
+  padding: 5px;
+}
+.verifycard p {
+  padding: 5px;
+}
+
+.verifycard button {
+  border: none;
+  color: white;
+  background-color: black;
+  width: 100px;
+  height: 35px;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.verifycard button:hover {
+  color: #cd9042;
+}

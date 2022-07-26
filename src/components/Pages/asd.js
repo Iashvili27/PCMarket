@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useDataContext } from "../../context/DataContext";
-import "./Additem.css";
 import { useNavigate } from "react-router-dom";
 
 function AddItem() {

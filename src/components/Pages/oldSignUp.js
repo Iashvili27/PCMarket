@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useUserAuth } from "../../context/UserAuthContext";
-import "./Signup.css";
+
 import { db, storedb } from "../../firebase";
 import { set, ref, onValue } from "firebase/database";
 import { doc, collection, setDoc } from "firebase/firestore";

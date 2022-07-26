@@ -7,6 +7,7 @@ import { storedb } from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import "./Signup.css";
 
 export const Signup = () => {
   const { user, signUp } = useUserAuth();
@@ -59,25 +60,45 @@ export const Signup = () => {
       }}
     >
       {(formik) => (
-        <div>
-          <h1 className="my-4 font-weight-bold .display-4">Sign Up</h1>
-          <Form>
-            <TextField label="First Name" name="firstName" type="text" />
-            <TextField label="last Name" name="lastName" type="text" />
-            <TextField label="Email" name="email" type="email" />
-            <TextField label="password" name="password" type="password" />
-            <TextField
-              label="Confirm Password"
-              name="confirmPassword"
-              type="password"
-            />
-            <button className="btn btn-dark mt-3" type="submit">
-              Register
-            </button>
-            <button className="btn btn-danger mt-3 ml-3" type="reset">
-              Reset
-            </button>
-          </Form>
+        <div className="signup-body">
+          <div className="signup-container">
+            <h1 className="my-4 font-weight-bold .display-4">Sign Up</h1>
+            <Form>
+              <TextField
+                holder={"Name"}
+                label="First Name"
+                name="firstName"
+                type="text"
+              />
+              <TextField
+                holder={"Surname"}
+                label="Last Name"
+                name="lastName"
+                type="text"
+              />
+              <TextField
+                holder={"user@mail.com"}
+                label="Email"
+                name="email"
+                type="email"
+              />
+              <TextField
+                holder={"******"}
+                label="Password"
+                name="password"
+                type="password"
+              />
+              <TextField
+                holder={"******"}
+                label="Confirm Password"
+                name="confirmPassword"
+                type="password"
+              />
+              <div className="login-button">
+                <button type="submit">Register</button>
+              </div>
+            </Form>
+          </div>
         </div>
       )}
     </Formik>
