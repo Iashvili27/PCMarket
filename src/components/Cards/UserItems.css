@@ -75,3 +75,10 @@
   margin: 30px;
   align-self: center;
 }
+
+.useritems-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}

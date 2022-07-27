@@ -1,5 +1,5 @@
 import React from "react";
-import UserItems from "../Cards/UserItems";
+
 import "./UserPage.css";
 import { Link, Outlet } from "react-router-dom";
 

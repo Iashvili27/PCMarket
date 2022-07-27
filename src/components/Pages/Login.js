@@ -20,6 +20,7 @@ export const Login = () => {
   const handleSubmit = async (values) => {
     try {
       await logIn(values.email, values.password);
+      navigate("/");
     } catch (err) {
       console.log(err);
     }

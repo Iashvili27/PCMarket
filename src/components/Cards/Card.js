@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Card.css";
 import { useDataContext } from "../../context/DataContext";
 import { useSearchContext } from "../../context/SearchContext";
@@ -9,11 +9,22 @@ import MyImage from "../../Assets/DefaultImage.png";
 const Card = ({ page }) => {
   const { items, addViewsToDatabase } = useDataContext();
   const { search, category } = useSearchContext();
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
+
   console.log(items);
   return (
     <div className="cardfragment">
       {category ? <h3>{category}</h3> : null}
-      {items.length > 0 ? (
+      {items.length > 0 && loading ? (
+        <div>
+          <CardLoader />
+        </div>
+      ) : (
         <div className="cardcontainer">
           {items
             .filter((item) => {
@@ -69,10 +80,6 @@ const Card = ({ page }) => {
                 </div>
               </Link>
             ))}
-        </div>
-      ) : (
-        <div>
-          <CardLoader />
         </div>
       )}
     </div>

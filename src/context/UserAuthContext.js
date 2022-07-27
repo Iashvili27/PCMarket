@@ -7,6 +7,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   sendEmailVerification,
+  updatePassword,
 } from "firebase/auth";
 import { auth } from "../firebase";
 
@@ -15,6 +16,16 @@ const userAuthContext = createContext();
 export function UserAuthContextProvider({ children }) {
   const [user, setUser] = useState({});
 
+  const updateUserPassword = (newPassword) => {
+    updatePassword(auth.currentUser, newPassword)
+      .then(() => {
+        console.log("password changed");
+      })
+      .catch((error) => {
+        console.log("error happened");
+      });
+  };
+
   function emailVerification() {
     return sendEmailVerification(auth.currentUser);
   }
@@ -22,6 +33,7 @@ export function UserAuthContextProvider({ children }) {
   function logIn(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
   }
+
   function signUp(email, password) {
     return createUserWithEmailAndPassword(auth, email, password).then(() =>
       sendEmailVerification(auth.currentUser)
@@ -55,6 +67,7 @@ export function UserAuthContextProvider({ children }) {
         logOut,
         googleSignIn,
         emailVerification,
+        updateUserPassword,
       }}
     >
       {children}

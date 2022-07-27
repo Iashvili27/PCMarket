@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Form } from "formik";
 import { TextField } from "./TextField";
 import * as Yup from "yup";
@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import "./Signup.css";
 
 export const Signup = () => {
-  const { user, signUp } = useUserAuth();
+  const { signUp } = useUserAuth();
   const navigate = useNavigate();
   const validate = Yup.object({
     firstName: Yup.string()

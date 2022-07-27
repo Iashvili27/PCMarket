@@ -13,7 +13,6 @@ import UserItems from "./components/Cards/UserItems";
 import Options from "./components/Cards/Options";
 import EditItem from "./components/Cards/EditItem";
 import EmailVerifyPage from "./components/Pages/EmailVerifyPage";
-import { useDataContext } from "./context/DataContext";
 
 function App() {
   return (

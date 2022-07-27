@@ -25,7 +25,6 @@ function EmailVerifyPage(props) {
         user?.reload().then(() => setEmailVerify(user.emailVerified));
         console.log("counting");
       }, 2000);
-
       setTimeout(() => {
         clearInterval(interval);
       }, 60000);
