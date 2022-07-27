@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
-import { auth } from "../../firebase";
+
 import CardLoader from "../Sceletons/CardLoader";
 import "./EmailVerifyPage.css";
 
 function EmailVerifyPage(props) {
-  const { signUp, user, emailVerification } = useUserAuth();
+  const { user, emailVerification } = useUserAuth();
   const [emailVerify, setEmailVerify] = useState(false);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
-  console.log(user);
+
   // const emailVerify = async () => {
   //   emailVerification().then(() => {
   //     console.log("verified");
