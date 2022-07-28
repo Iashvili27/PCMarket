@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDataContext } from "../../context/DataContext";
-import "./Additem.css";
+
 import ItemAddedModal from "../Modal/ItemAddedModal";
 
 function AddItem() {

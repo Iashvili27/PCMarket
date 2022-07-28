@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDataContext } from "../../context/DataContext";
 import { Link } from "react-router-dom";
 import Modal from "../Modal/Modal";
-import "./UserItems.css";
+
 import MyImage from "../../Assets/DefaultImage.png";
 import CardLoader from "../Sceletons/CardLoader";
 

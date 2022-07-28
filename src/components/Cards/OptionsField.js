@@ -1,6 +1,5 @@
 import React from "react";
 import { ErrorMessage, useField } from "formik";
-import "./OptionsField.css";
 
 export const OptionsField = ({ label, ...props }) => {
   const [field, meta] = useField(props);

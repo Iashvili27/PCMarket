@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./Card.css";
 import { useDataContext } from "../../context/DataContext";
 import { useSearchContext } from "../../context/SearchContext";
 import { Link } from "react-router-dom";
@@ -18,14 +17,14 @@ const Card = ({ page }) => {
 
   console.log(items);
   return (
-    <div className="cardfragment">
+    <div className="w-full h-full">
       {category ? <h3>{category}</h3> : null}
       {items.length > 0 && loading ? (
         <div>
           <CardLoader />
         </div>
       ) : (
-        <div className="cardcontainer">
+        <div className="flex flex-col items-center justify-around flex-wrap  md:flex-row">
           {items
             .filter((item) => {
               if (!category && !search) {
@@ -52,30 +51,27 @@ const Card = ({ page }) => {
               <Link
                 onClick={() => addViewsToDatabase(item.uuid, item.views)}
                 to={`${page}${item.uuid}`}
-                className="card"
+                className="h-[150px] w-[90%] flex shadow-md  m-3 bg-white rounded-lg md:w-[350px] md-h[200px]"
                 key={item.uuid}
               >
-                <div className="cardtitle">
-                  <p>{item.title}</p>
-                </div>
-                <div className="cardimg">
-                  {item.imageurl ? (
-                    <img
-                      className="card-image"
-                      alt="img"
-                      src={`${item.imageurl}`}
-                    />
-                  ) : (
-                    <img className="card-image" alt="img" src={MyImage} />
-                  )}
-                </div>
-
-                <div className="carddesc">
-                  <div className="cardprice">
-                    {item.price ? <p>{item.price} GEL</p> : <p>OFFER</p>}
-                  </div>
-                  <div className="cardviews">
-                    <p>{item.views} Views</p>
+                {item.imageurl ? (
+                  <img
+                    className="h-[100%] w-[40%] rounded-lg object-cover"
+                    alt="img"
+                    src={`${item.imageurl}`}
+                  />
+                ) : (
+                  <img className="card-image" alt="img" src={MyImage} />
+                )}
+                <div className="w-[60%]">
+                  <p className="text-xl p-4 h-[50%] font-bold">{item.title}</p>
+                  <div className="flex justify-between h-[50%] items-end">
+                    {item.price ? (
+                      <p className="p-4 font-semibold	">{item.price} GEL</p>
+                    ) : (
+                      <p className="p-4">OFFER</p>
+                    )}
+                    <p className="p-4">{item.views} Views</p>
                   </div>
                 </div>
               </Link>

@@ -7,7 +7,6 @@ import { storedb } from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
-import "./Signup.css";
 
 export const Signup = () => {
   const { signUp } = useUserAuth();

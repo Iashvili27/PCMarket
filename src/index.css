@@ -1,26 +1,3 @@
-* {
-  margin: 0;
-}
-
-body,
-html {
-  margin: 0;
-  font-family: "Roboto", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  display: block;
-  min-height: 100% !important;
-  height: 100%;
-  width: 100%;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-input:-webkit-autofill,
-input:-webkit-autofill:focus {
-  transition: background-color 600000s 0s, color 600000s 0s;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

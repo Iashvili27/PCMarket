@@ -1,4 +1,3 @@
-import "./App.css";
 import Header from "./components/Navigation/Header";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Homepage from "./components/Pages/Homepage";
@@ -17,9 +16,9 @@ import EmailVerifyPage from "./components/Pages/EmailVerifyPage";
 function App() {
   return (
     <BrowserRouter>
-      <div className="app">
+      <div className="min-h-screen">
         <Header />
-        <div className="app-container">
+        <div className="min-h-screen">
           <Routes>
             <Route path="/" element={<Homepage />}></Route>
             <Route path="/:id" element={<CardDetails />}></Route>

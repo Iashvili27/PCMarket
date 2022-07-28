@@ -1,6 +1,6 @@
 import React from "react";
 import { useDataContext } from "../../context/DataContext";
-import "./Modal.css";
+
 import { useNavigate } from "react-router-dom";
 
 function ItemAddedModal(props) {

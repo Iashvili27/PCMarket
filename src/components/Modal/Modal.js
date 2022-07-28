@@ -1,6 +1,5 @@
 import React from "react";
 import { useDataContext } from "../../context/DataContext";
-import "./Modal.css";
 
 function Modal(props) {
   const {

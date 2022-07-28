@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
 
 import CardLoader from "../Sceletons/CardLoader";
-import "./EmailVerifyPage.css";
 
 function EmailVerifyPage(props) {
   const { user, emailVerification } = useUserAuth();

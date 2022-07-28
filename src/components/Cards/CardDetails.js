@@ -1,7 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useDataContext } from "../../context/DataContext";
-import "./CardDetails.css";
 import "../Sceletons/ContentLoader.css";
 import ContentLoader from "../Sceletons/ContentLoader";
 import MyImage from "../../Assets/DefaultImage.png";

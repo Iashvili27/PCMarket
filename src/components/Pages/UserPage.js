@@ -1,6 +1,5 @@
 import React from "react";
 
-import "./UserPage.css";
 import { Link, Outlet } from "react-router-dom";
 
 function UserPage() {
