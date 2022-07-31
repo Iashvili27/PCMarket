@@ -1,10 +1,4 @@
 import React, { useState, useEffect, useRef, Fragment } from "react";
-import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
-import {
-  IoArrowForwardCircle,
-  IoArrowDownCircleOutline,
-} from "react-icons/io5";
-
 import { Link } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
 import { useSearchContext } from "../../context/SearchContext";
@@ -19,23 +13,13 @@ function Header() {
   const { searchHandler, setCategory } = useSearchContext();
   const { userdata } = useDataContext();
   const [inputValue, setInputValue] = useState("");
-  const [nav, setNav] = useState(true);
   const [userMenu, setUserMenu] = useState(true);
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
 
-  const handleNav = () => {
-    setNav(!nav);
-  };
-
-  const userMenuHandler = () => {
-    setUserMenu(!userMenu);
-  };
-
   let inputRef = useRef();
-  let userButtonRef = useRef();
 
   const searchResponsiveHandler = () => {
     setSearchResponsive((prev) => !prev);
@@ -48,15 +32,8 @@ function Header() {
       }
     };
     document.addEventListener("mousedown", handler);
-    let handler2 = (event) => {
-      if (!userButtonRef.current?.contains(event.target)) {
-        setUserMenu(true);
-      }
-    };
-    document.addEventListener("mousedown", handler2);
     return () => {
       document.removeEventListener("mousedown", handler);
-      document.removeEventListener("mousedown", handler2);
     };
   }, []);
 
@@ -246,67 +223,6 @@ function Header() {
               </Transition>
             </Menu>
           ) : (
-            // <div ref={userButtonRef} className="dropdown">
-            //   <button
-            //     className="flex flex-col justify-center items-center mx-3 text-sm rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-            //     onClick={userMenuHandler}
-            //   >
-            //     <img
-            //       class="w-10 h-10 rounded-full"
-            //       src={ProfileImage}
-            //       alt="user photo"
-            //     ></img>
-            //     <p className="fixed mt-[60px]">{userdata.firstname}</p>
-            //   </button>
-            //   <div
-            //     id="dropdown"
-            //     class={
-            //       userMenu
-            //         ? "hidden z-10 w-22 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700"
-            //         : "z-10 origin-top-right absolute left-0 mt-5 w-32 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-            //     }
-            //   >
-            //     <ul
-            //       class="py-1 text-sm text-gray-700 dark:text-gray-200 flex flex-col items-center"
-            //       aria-labelledby="multiLevelDropdownButton"
-            //     >
-            //       <li>
-            //         <Link
-            //           onClick={() => {
-            //             setUserMenu(!userMenu);
-            //           }}
-            //           to="/additem"
-            //           class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-            //         >
-            //           Add Item
-            //         </Link>
-            //       </li>
-
-            //       <li>
-            //         <Link
-            //           onClick={() => {
-            //             setUserMenu(!userMenu);
-            //           }}
-            //           to="/myproducts"
-            //           class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-            //         >
-            //           My Products
-            //         </Link>
-            //       </li>
-            //       <li>
-            //         <Link
-            //           onClick={handleLogOut}
-            //           to="/login"
-            //           class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-            //         >
-            //           Logout
-            //         </Link>
-            //       </li>
-            //     </ul>
-            //   </div>
-
-            // </div>
-
             <div className="flex">
               <Link
                 className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
@@ -316,156 +232,6 @@ function Header() {
               </Link>
             </div>
           )}
-        </div>
-      </div>
-      <div className="">
-        <div className="hidden md:flex h-[50px] w-full justify-center items-center">
-          <p
-            onClick={(e) => {
-              setCategory("PC");
-            }}
-            className="p-4"
-          >
-            PC
-          </p>
-          <p
-            onClick={(e) => {
-              setCategory("Components");
-            }}
-            className="p-4"
-          >
-            Components
-          </p>
-          <p
-            onClick={(e) => {
-              setCategory("Laptops");
-            }}
-            className="p-4"
-          >
-            Laptops
-          </p>
-          <p
-            onClick={(e) => {
-              setCategory("Consoles");
-            }}
-            className="p-4"
-          >
-            Consoles
-          </p>
-          <p
-            onClick={(e) => {
-              setCategory("Monitors");
-            }}
-            className="p-4"
-          >
-            Monitors
-          </p>
-          <p
-            onClick={(e) => {
-              setCategory("Peripherals");
-            }}
-            className="p-4"
-          >
-            Peripherals
-          </p>
-          <p
-            onClick={(e) => {
-              setCategory("Accessories");
-            }}
-            className="p-4"
-          >
-            Accessories
-          </p>
-        </div>
-        <div className="flex md:hidden h-[50px] w-full justify-end items-center p-1">
-          <div
-            onClick={handleNav}
-            className=" flex flex-row border-2 rounded-lg w-[180px] justify-center"
-          >
-            <p className="text-lg mr-1 font-semibold">Categories</p>
-            <AiOutlineMenu size={30} />
-          </div>
-        </div>
-        <div
-          className={
-            !nav
-              ? "fixed left-0 top-0 w-[100%] border-r bg-white border-r-gray-900 h-full z-50"
-              : "hidden"
-          }
-        >
-          <div className="flex flex-col items-center">
-            <div className="flex justify-between border-b-2 w-[100%]">
-              <h3 className="p-4">Categories</h3>
-              <div onClick={handleNav} className="p-4">
-                <AiOutlineClose size={30} className="" />
-              </div>
-            </div>
-            <ul className="flex flex-col w-[80%] h-full ">
-              <li className="border-b-2 p-5 flex justify-between">
-                <button className="w-[80%] flex justify-between items-center">
-                  <p>PC</p>
-                  <IoArrowDownCircleOutline size={25} />
-                </button>
-                <button>
-                  <IoArrowForwardCircle size={25} />
-                </button>
-              </li>
-              <li className="border-b-2 p-5 flex justify-between">
-                <button className="w-[80%] flex justify-between items-center">
-                  <p>Components</p>
-                  <IoArrowDownCircleOutline size={25} />
-                </button>
-                <button>
-                  <IoArrowForwardCircle size={25} />
-                </button>
-              </li>
-              <li className="border-b-2 p-5 flex justify-between">
-                <button className="w-[80%] flex justify-between items-center">
-                  <p>Laptops</p>
-                  <IoArrowDownCircleOutline size={25} />
-                </button>
-                <button>
-                  <IoArrowForwardCircle size={25} />
-                </button>
-              </li>
-              <li className="border-b-2 p-5 flex justify-between">
-                <button className="w-[80%] flex justify-between items-center">
-                  <p>Consoles</p>
-                  <IoArrowDownCircleOutline size={25} />
-                </button>
-                <button>
-                  <IoArrowForwardCircle size={25} />
-                </button>
-              </li>
-              <li className="border-b-2 p-5 flex justify-between">
-                <button className="w-[80%] flex justify-between items-center">
-                  <p>Monitors</p>
-                  <IoArrowDownCircleOutline size={25} />
-                </button>
-                <button>
-                  <IoArrowForwardCircle size={25} />
-                </button>
-              </li>
-              <li className="border-b-2 p-5 flex justify-between">
-                <button className="w-[80%] flex justify-between items-center">
-                  <p>Peripherals</p>
-                  <IoArrowDownCircleOutline size={25} />
-                </button>
-                <button>
-                  <IoArrowForwardCircle size={25} />
-                </button>
-              </li>
-              <li className="border-b-2 p-5 flex justify-between">
-                <button className="w-[80%] flex justify-between items-center">
-                  <p>Accessories</p>
-                  <IoArrowDownCircleOutline size={25} />
-                </button>
-                <button>
-                  <IoArrowForwardCircle size={25} />
-                </button>
-              </li>
-            </ul>
-          </div>
         </div>
       </div>
     </Fragment>

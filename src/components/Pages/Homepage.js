@@ -1,10 +1,12 @@
 import React from "react";
 import Card from "../Cards/Card";
 import Slider from "../Carousel/Slider";
+import Category from "../Navigation/Category";
 
 function Homepage() {
   return (
     <div className="min-h-screen bg-[#F8F8F8] flex flex-col items-center ">
+      <Category />
       <Slider />
       <div className="h-[50px] w-full border-b-2"></div>
       <div className="h-[100px] w-full border-b-2 flex items-center justify-center">

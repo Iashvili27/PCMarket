@@ -58,14 +58,14 @@ const AddItem = () => {
   return (
     <div className="min-h-screen flex flex-col items-center p-4">
       <div className="p-1 w-full flex items-center justify-center border-b-2">
-        <h3 className=" font-bold  text-2xl">Add new item</h3>
+        <h3 className=" font-bold  text-2xl">Add Item</h3>
       </div>
       <form
         className="flex flex-col p-3 w-full items-center"
         onSubmit={formik.handleSubmit}
       >
-        <div className="flex m-2 w-full flex-col border-2 border-indigo-700 h-52 justify-center rounded-2xl items-center">
-          <h3 className="p-4">Choose item category</h3>
+        <div className="flex m-2 w-full md:w-2/4 xl:w-2/6 flex-col border-2 border-indigo-700 h-52 justify-center rounded-2xl items-center">
+          <h3 className="p-4 font-bold text-2xl">Choose item category</h3>
           <select className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-[90%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-2xl">
             <option selected>Choose Category</option>
             <option value="PC">PC</option>
@@ -77,7 +77,7 @@ const AddItem = () => {
             <option value="Accessories">Accessories</option>
           </select>
         </div>
-        <div className="flex m-2 w-full  flex-col border-2 border-indigo-700 min-h-min rounded-2xl items-center">
+        <div className="flex m-2 w-full md:w-2/4 xl:w-2/6   flex-col border-2 border-indigo-700 min-h-min rounded-2xl items-center">
           <div className="w-[90%] h-[50%] border-dashed border-2 border-indigo-600 m-2 rounded-md">
             <label
               className="md:cursor-pointer w-full h-[200px] flex justify-center items-center flex-col"
@@ -134,23 +134,24 @@ const AddItem = () => {
             </button>
           </div>
         </div>
-        <div className="flex m-2 w-full flex-col border-2 border-indigo-700 h-96 justify-center rounded-2xl items-center">
+        <div className="flex m-2 w-full md:w-2/4 xl:w-2/6  flex-col border-2 border-indigo-700 h-96 justify-center rounded-2xl items-center">
+          <h3 className="font-bold text-2xl">Description</h3>
           <TextArea
-            className="w-[90%] h-[90%]"
+            className="w-[90%] h-[60%]"
             rows={4}
             placeholder="Write item description. Maximum 250 letters."
             maxLength={250}
           />
         </div>
-        <div className="flex  m-2 w-full flex-col border-2 border-indigo-700 h-52 justify-center rounded-2xl items-center">
-          <div className="p-4">Enter Item Price</div>
+        <div className="flex  m-2 w-full md:w-2/4 xl:w-2/6 flex-col border-2 border-indigo-700 h-52 justify-center rounded-2xl items-center">
+          <div className="p-4 font-bold text-2xl">Enter Item Price</div>
           <div className="flex flex-row w-[90%] ">
             <input
-              className="w-[80%] bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-2.5  rounded-2xl"
+              className="w-[75%] bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-2.5  rounded-2xl"
               type="number"
               placeholder="Enter price"
             />
-            <select className="w-[20%] bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-2xl">
+            <select className="w-[25%] bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-2xl">
               <option selected value="GEL">
                 GEL
               </option>
@@ -158,7 +159,7 @@ const AddItem = () => {
             </select>
           </div>
         </div>
-        <div className="flex m-2 w-full flex-col border-2 border-indigo-700 h-52 justify-center rounded-2xl items-center">
+        <div className="flex m-2 w-full md:w-2/4 xl:w-2/6 flex-col border-2 border-indigo-700 h-52 justify-center rounded-2xl items-center">
           <div className="w-[90%]">
             <label htmlFor="sellername">Enter Seller Name</label>
             <input
