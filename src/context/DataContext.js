@@ -190,6 +190,7 @@ export function DataContextProvider({ children }) {
         });
     }
   };
+
   useEffect(() => {
     //Get User Items
     if (user && user.email) {

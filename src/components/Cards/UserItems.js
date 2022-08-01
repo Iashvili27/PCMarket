@@ -27,22 +27,26 @@ function UserItems() {
           <CardLoader />
         </div>
       ) : (
-        <div className="useritems-container">
-          <h3 className="useritems-headname">My Items</h3>
+        <>
           {useritems.length > 0 ? (
-            <div>
+            <div className="flex flex-col">
               {useritems.map((item) => {
                 return (
-                  <div key={item.uuid} className="useritems-cardwrapper">
-                    <div className="useritems-name">
-                      <h3>{item.title}</h3>
-                      <p>Added on : {item.date}</p>
+                  <div
+                    key={item.uuid}
+                    className="p-4 m-2 flex flex-col rounded-lg border border-gray-200 h-[200px]"
+                  >
+                    <div className="flex justify-between w-full items-center p-4 h-[30%]">
+                      <h3 className="italic text-xl font-bold	md:text-2xl">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm">Added on : {item.date}</p>
                     </div>
-                    <div className="useritems-desc">
-                      <div className="useritems-image">
+                    <div className="flex w-full h-[70%]">
+                      <div className="w-[30%] items-center justify-center flex">
                         {item.imageurl ? (
                           <img
-                            className="card-image"
+                            className="w-[100px] h-[100px]"
                             alt="img"
                             src={`${item.imageurl}`}
                           />
@@ -50,20 +54,24 @@ function UserItems() {
                           <img className="card-image" alt="img" src={MyImage} />
                         )}
                       </div>
-                      <div className="useritems-price">
-                        <p>Views : {item.views}</p>
-                      </div>
-                      <div className="useritems-price">
-                        <p>{item.price} GEL</p>
-                      </div>
-                      <div>
-                        <div className="useritems-button">
-                          <Link to={`${page}${item.uuid}`}>
-                            <button>EDIT</button>
-                          </Link>
+                      <div className="w-[70%]">
+                        <div className="flex items-center justify-between h-1/2 p-2">
+                          <div className="useritems-price">
+                            <p>Views : {item.views}</p>
+                          </div>
+                          <div className="useritems-price">
+                            <p>{item.price} GEL</p>
+                          </div>
                         </div>
-                        <div className="useritems-buttondelete">
+                        <div className="flex items-center justify-between h-1/2 p-2">
+                          <Link to={`${page}${item.uuid}`}>
+                            <button className="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-full">
+                              EDIT
+                            </button>
+                          </Link>
+
                           <button
+                            className="bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded-full"
                             onClick={() => {
                               setModalData(item.uuid);
                               setOpenModal(true);
@@ -83,7 +91,7 @@ function UserItems() {
               <h3>You don't have any item.</h3>
             </div>
           )}
-        </div>
+        </>
       )}
 
       {openModal && <Modal itemuid={modalData} closeModal={setOpenModal} />}
