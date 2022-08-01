@@ -1,39 +1,23 @@
-import React from "react";
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
-import { Link, Outlet } from "react-router-dom";
+import React, { useState } from "react";
+import ImageMonitor from "../../Assets/monitor.png";
+import { Disclosure } from "@headlessui/react";
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
+import { Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-const user = {
-  name: "Tom Cook",
-  email: "tom@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
-const navigation = [
-  { name: "Add Item", href: "additem", current: false },
-  { name: "My Products", href: "myproducts", current: true },
-  { name: "Settings", href: "options", current: false },
-];
-const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
-];
+
 function UserPage() {
+  const navigation = [
+    { name: "Add Item", to: "/additem", current: false },
+    { name: "My Products", to: "/myproducts", current: false },
+    { name: "Settings", to: "/options", current: false },
+  ];
   return (
     <>
-      {/*
-      This example requires updating your template:
-
-      ```
-      <html class="h-full bg-gray-100">
-      <body class="h-full">
-      ```
-    */}
-      <div className="min-h-full">
+      <div className="min-h-[80vh]">
         <Disclosure as="nav" className="bg-gray-800">
           {({ open }) => (
             <>
@@ -43,16 +27,16 @@ function UserPage() {
                     <div className="flex-shrink-0">
                       <img
                         className="h-8 w-8"
-                        src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                        src={ImageMonitor}
                         alt="Workflow"
                       />
                     </div>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
                         {navigation.map((item) => (
-                          <a
+                          <Link
                             key={item.name}
-                            href={item.href}
+                            to={item.to}
                             className={classNames(
                               item.current
                                 ? "bg-gray-900 text-white"
@@ -62,7 +46,7 @@ function UserPage() {
                             aria-current={item.current ? "page" : undefined}
                           >
                             {item.name}
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     </div>
@@ -87,10 +71,10 @@ function UserPage() {
               <Disclosure.Panel className="md:hidden">
                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                   {navigation.map((item) => (
-                    <Disclosure.Button
+                    <Link
                       key={item.name}
                       as="a"
-                      href={item.href}
+                      to={item.to}
                       className={classNames(
                         item.current
                           ? "bg-gray-900 text-white"
@@ -100,7 +84,7 @@ function UserPage() {
                       aria-current={item.current ? "page" : undefined}
                     >
                       {item.name}
-                    </Disclosure.Button>
+                    </Link>
                   ))}
                 </div>
               </Disclosure.Panel>
@@ -113,11 +97,11 @@ function UserPage() {
             <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
           </div>
         </header>
-        <main className="min-h-screen">
-          <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 min-h-screen">
+        <main className="min-h-[50vh]">
+          <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 ">
             {/* Replace with your content */}
 
-            <div className="border-4 border-dashed border-gray-200 rounded-lg min-h-screen">
+            <div className="border-4 border-dashed border-gray-200 rounded-lg  min-h-[50vh] flex justify-around flex-col">
               <Outlet />
             </div>
 

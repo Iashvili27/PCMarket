@@ -29,8 +29,12 @@ function Options() {
       }}
     >
       {(formik) => (
-        <div className="optionscontainer">
-          <Form>
+        <div
+          className="flex
+         flex-col  w-full min-h-[50%] items-center justify-center"
+        >
+          <h3 className="p-4 font-bold text-2xl">Change Password</h3>
+          <Form className="flex flex-col justify-center items-center">
             <OptionsField
               styling={"logininp"}
               label="Email"
@@ -53,9 +57,13 @@ function Options() {
               name="confirmPassword"
               type="password"
             />
-            <div className="login-button">
-              <button type="submit">Change Password</button>
-            </div>
+
+            <button
+              className="text-white m-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+              type="submit"
+            >
+              Change Password
+            </button>
           </Form>
         </div>
       )}

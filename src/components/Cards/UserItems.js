@@ -29,7 +29,7 @@ function UserItems() {
       ) : (
         <>
           {useritems.length > 0 ? (
-            <div className="flex flex-col">
+            <>
               {useritems.map((item) => {
                 return (
                   <div
@@ -85,7 +85,7 @@ function UserItems() {
                   </div>
                 );
               })}
-            </div>
+            </>
           ) : (
             <div className="useritems-loader">
               <h3>You don't have any item.</h3>
@@ -94,7 +94,13 @@ function UserItems() {
         </>
       )}
 
-      {openModal && <Modal itemuid={modalData} closeModal={setOpenModal} />}
+      {openModal && (
+        <Modal
+          itemuid={modalData}
+          modal={openModal}
+          closeModal={setOpenModal}
+        />
+      )}
     </>
   );
 }
