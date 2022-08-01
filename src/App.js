@@ -18,15 +18,15 @@ function App() {
     <BrowserRouter>
       <div className="min-h-screen">
         <Header />
-        <div className="min-h-screen">
+        <div className="min-h-[80vh]">
           <Routes>
             <Route path="/" element={<Homepage />}></Route>
             <Route path="/:id" element={<CardDetails />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/signup" element={<Signup />}></Route>
-            <Route path="/additem" element={<AddItem />}></Route>
             <Route path="/verify" element={<EmailVerifyPage />}></Route>
             <Route path="/" element={<UserPage />}>
+              <Route path="additem" element={<AddItem />}></Route>
               <Route path="myproducts" element={<UserItems />} />
               <Route path="options" element={<Options />} />
               <Route path="edititem:id" element={<EditItem />} />
