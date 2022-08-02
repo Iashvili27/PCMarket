@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDropzone } from "react-dropzone";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { FcCancel } from "react-icons/fc";
 import { Input } from "antd";
 import { AddItemTextField } from "./AddItemTextField";
 import { useDataContext } from "../../context/DataContext";
+import ImageUpload from "./ImageUpload";
 
 const fileTypes = ["JPG", "PNG", "GIF"];
 // Ant Inputs
@@ -87,7 +89,7 @@ const AddItem = () => {
               </Field>
             </div>
             <div className="flex m-2 w-full md:w-2/4 xl:w-2/4   flex-col border-2 border-gray-200 min-h-min rounded-2xl items-center">
-              <div className="w-[90%] h-[50%] border-dashed border-2 border-indigo-600 m-2 rounded-md">
+              {/* <div className="w-[90%] h-[50%] border-dashed border-2 border-indigo-600 m-2 rounded-md">
                 <label
                   className="md:cursor-pointer w-full h-[200px] flex justify-center items-center flex-col"
                   htmlFor="images-upload"
@@ -141,7 +143,8 @@ const AddItem = () => {
                 >
                   Upload
                 </button>
-              </div>
+              </div> */}
+              <ImageUpload />
             </div>
             <div className="flex m-2 w-full md:w-2/4 xl:w-2/4  flex-col border-2 border-gray-200 h-96 justify-center rounded-2xl items-center">
               <h3 className="font-bold text-xl p-4">Item Name</h3>
