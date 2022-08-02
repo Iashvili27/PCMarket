@@ -38,7 +38,7 @@ function UserItems() {
                   >
                     <div className="flex justify-between w-full items-center p-4 h-[30%]">
                       <h3 className="italic text-xl font-bold	md:text-2xl">
-                        {item.title}
+                        {item.itemName}
                       </h3>
                       <p className="text-sm">Added on : {item.date}</p>
                     </div>
@@ -51,7 +51,11 @@ function UserItems() {
                             src={`${item.imageurl}`}
                           />
                         ) : (
-                          <img className="card-image" alt="img" src={MyImage} />
+                          <img
+                            className="w-[100px] h-[100px]"
+                            alt="img"
+                            src={MyImage}
+                          />
                         )}
                       </div>
                       <div className="w-[70%]">
@@ -60,7 +64,7 @@ function UserItems() {
                             <p>Views : {item.views}</p>
                           </div>
                           <div className="useritems-price">
-                            <p>{item.price} GEL</p>
+                            <p>{item.itemPrice} GEL</p>
                           </div>
                         </div>
                         <div className="flex items-center justify-between h-1/2 p-2">

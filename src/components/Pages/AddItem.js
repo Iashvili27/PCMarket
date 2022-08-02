@@ -4,13 +4,19 @@ import * as Yup from "yup";
 import { FcCancel } from "react-icons/fc";
 import { Input } from "antd";
 import { AddItemTextField } from "./AddItemTextField";
+import { useDataContext } from "../../context/DataContext";
 
 const fileTypes = ["JPG", "PNG", "GIF"];
 // Ant Inputs
 const { TextArea } = Input;
 
 const AddItem = () => {
+  const { setUploadItemData, writeToDatabase, changeHandler } =
+    useDataContext();
   const [file, setFile] = useState([]);
+  const [text, setText] = useState("");
+
+  console.log(text);
 
   function uploadSingleFile(e) {
     setFile([...file, URL.createObjectURL(e.target.files[0])]);
@@ -28,19 +34,17 @@ const AddItem = () => {
     console.log(s);
   }
   const validate = Yup.object({
-    firstName: Yup.string()
-      .max(15, "Must be 15 characters or less")
-      .required("Required"),
-    lastName: Yup.string()
+    category: Yup.string().required("Required"),
+    itemName: Yup.string()
       .max(20, "Must be 20 characters or less")
       .required("Required"),
-    email: Yup.string().email("Email is invalid").required("Email is required"),
-    password: Yup.string()
-      .min(6, "Password must be at least 6 charaters")
-      .required("Password is required"),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Password must match")
-      .required("Confirm password is required"),
+    sellerNumber: Yup.number().required("Number is required"),
+    sellerName: Yup.string()
+      .max(10, "Name must be max 10 charaters")
+      .required("Name is required"),
+    itemPrice: Yup.number().required("itemPrice is required"),
+    currency: Yup.string().required("Currency is required"),
+    description: Yup.string().required("Description is required"),
   });
 
   return (
@@ -51,12 +55,12 @@ const AddItem = () => {
         sellerNumber: "",
         sellerName: "",
         itemPrice: "",
-        sellerName: "",
+        currency: "",
         description: "",
       }}
-      // validationSchema={validate}
+      validationSchema={validate}
       onSubmit={(values) => {
-        console.log(values);
+        changeHandler(values);
       }}
     >
       {(formik) => (
@@ -149,11 +153,16 @@ const AddItem = () => {
 
               <h3 className="font-bold text-xl p-4">Description</h3>
               <TextArea
+                autoSize
                 name="description"
                 className="w-[90%] h-[50%] p-4"
                 rows={4}
                 placeholder="Write item description. Maximum 250 letters."
                 maxLength={250}
+                bordered
+                onChange={(value) =>
+                  formik.setFieldValue("description", value.target.value)
+                }
               />
             </div>
             <div className="flex  m-2 w-full md:w-2/4 xl:w-2/4 flex-col border-2 border-gray-200 h-52 justify-center rounded-2xl items-center">
@@ -164,33 +173,44 @@ const AddItem = () => {
                   holder={"Enter Price"}
                   type="itemPrice"
                 />
-                <select className="w-[25%] bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-2xl">
-                  <option selected value="GEL">
-                    GEL
+
+                <Field
+                  as="select"
+                  name="currency"
+                  className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-[20%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-2xl"
+                >
+                  <option value="none" selected>
+                    Choose Currency
                   </option>
+                  <option value="GEL">GEL</option>
                   <option value="USD">USD</option>
-                </select>
+                </Field>
               </div>
             </div>
             <div className="flex m-2 w-full md:w-2/4 xl:w-2/4 flex-col border-2 border-gray-200 h-52 justify-center rounded-2xl items-center">
-              <div className="w-[90%]">
+              <>
                 <label htmlFor="sellername">Enter Seller Name</label>
                 <AddItemTextField
                   name="sellerName"
                   holder={"Seller name"}
                   type="sellerName"
                 />
-              </div>
-              <div className="w-[90%]">
+              </>
+              <>
                 <label htmlFor="sellernumber">Enter Phone Number</label>
                 <AddItemTextField
                   name="sellerNumber"
                   holder={"Phone number"}
                   type="phoneNumber"
                 />
-              </div>
+              </>
             </div>
-            <button type="submit">add</button>
+            <button
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              type="submit"
+            >
+              Add Item
+            </button>
           </Form>
         </div>
       )}

@@ -25,12 +25,13 @@ const dataContext = createContext();
 
 export function DataContextProvider({ children }) {
   const { user } = useUserAuth();
-  const [category, setCategory] = useState("");
-  const [contactnumber, setContactNumber] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [sellername, setSellerName] = useState("");
-  const [title, setTitle] = useState("");
+  const [uploadItemData, setUploadItemData] = useState({});
+  // const [category, setCategory] = useState("");
+  // const [contactnumber, setContactNumber] = useState("");
+  // const [description, setDescription] = useState("");
+  // const [price, setPrice] = useState("");
+  // const [sellername, setSellerName] = useState("");
+  // const [title, setTitle] = useState("");
   const [imageurl, setImageUrl] = useState("");
   const [imageUpload, setImageUpload] = useState(null);
   const [imageuploaddone, setImageUploadDone] = useState("");
@@ -43,6 +44,8 @@ export function DataContextProvider({ children }) {
   // States for modal
   const [itemdeletedsucecsfully, setItemDeletedSuccesfully] = useState(false);
   const [itemAddedSuccesfully, setItemAddedSuccesfully] = useState(false);
+
+  console.log(uploadItemData);
 
   // User uploads image in Database
   const uploadImage = async () => {
@@ -99,30 +102,47 @@ export function DataContextProvider({ children }) {
   const date = `${itemDateDay}/${itemDateMonth}`;
 
   // User Adds Item In Database
-  const writeToDatabase = () => {
+
+  const writeToDatabase = (values) => {
+    const {
+      category,
+      currency,
+      description,
+      itemName,
+      itemPrice,
+      sellerName,
+      sellerNumber,
+    } = values;
     const docRef = doc(storedb, "users", user.email);
     const colRef = collection(docRef, "items");
     addDoc(colRef, {
       date: date,
       uuid,
       category,
-      contactnumber,
+      currency,
       description,
-      price,
-      sellername,
-      title,
+      itemName,
+      itemPrice,
+      sellerName,
+      sellerNumber,
+      // category,
+      // contactnumber,
+      // description,
+      // price,
+      // sellername,
+      // title,
       userUid,
       imageurl,
       views: 0,
     })
       .then(() => {
         setUuid(uid());
-        setTitle("");
-        setCategory("");
-        setContactNumber("");
-        setDescription("");
-        setPrice("");
-        setSellerName("");
+        // setTitle("");
+        // setCategory("");
+        // setContactNumber("");
+        // setDescription("");
+        // setPrice("");
+        // setSellerName("");
         setImageUrl("");
         setItemAddedSuccesfully(true);
       })
@@ -131,8 +151,8 @@ export function DataContextProvider({ children }) {
       });
   };
 
-  const changeHandler = () => {
-    writeToDatabase();
+  const changeHandler = (values) => {
+    writeToDatabase(values);
   };
 
   // After click on item views are adding in firebase
@@ -233,18 +253,19 @@ export function DataContextProvider({ children }) {
   return (
     <dataContext.Provider
       value={{
-        category,
-        setCategory,
-        contactnumber,
-        setContactNumber,
-        description,
-        setDescription,
-        price,
-        setPrice,
-        sellername,
-        setSellerName,
-        title,
-        setTitle,
+        // category,
+        // setCategory,
+        // contactnumber,
+        // setContactNumber,
+        // description,
+        // setDescription,
+        // price,
+        // setPrice,
+        // sellername,
+        // setSellerName,
+        // title,
+        // setTitle,
+        setUploadItemData,
         imageurl,
         setImageUrl,
         changeHandler,

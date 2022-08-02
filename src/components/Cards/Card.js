@@ -64,10 +64,14 @@ const Card = ({ page }) => {
                   <img className="card-image" alt="img" src={MyImage} />
                 )}
                 <div className="w-[60%]">
-                  <p className="text-xl p-4 h-[50%] font-bold">{item.title}</p>
+                  <p className="text-xl p-4 h-[50%] font-bold">
+                    {item.itemName}
+                  </p>
                   <div className="flex justify-between h-[50%] items-end">
-                    {item.price ? (
-                      <p className="p-4 font-semibold	">{item.price} GEL</p>
+                    {item.itemPrice ? (
+                      <p className="p-4 font-semibold	">
+                        {item.itemPrice} {item.currency}
+                      </p>
                     ) : (
                       <p className="p-4">OFFER</p>
                     )}
