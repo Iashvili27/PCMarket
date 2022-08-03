@@ -8,17 +8,71 @@ import { AddItemTextField } from "./AddItemTextField";
 import { useDataContext } from "../../context/DataContext";
 import ImageUpload from "./ImageUpload";
 
+function Previews(props) {
+  const [files, setFiles] = useState([]);
+  console.log(files);
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: {
+      "image/*": [],
+    },
+    onDrop: (acceptedFiles) => {
+      setFiles(
+        acceptedFiles.map((file) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        )
+      );
+    },
+    maxFiles: 5,
+  });
+  const remove = (file) => {
+    const newFiles = [...files]; // make a var for the new array
+    newFiles.splice(file, 1); // remove the file from the array
+    setFiles(newFiles); // update the state
+  };
+
+  const thumbs = files.map((file, i) => (
+    <div key={file.name}>
+      <div>
+        <img
+          src={file.preview}
+          // Revoke data uri after image is loaded
+          onLoad={() => {
+            URL.revokeObjectURL(file.preview);
+          }}
+        />
+        <button type="button" onClick={() => remove(i)}>
+          delete
+        </button>
+      </div>
+    </div>
+  ));
+
+  useEffect(() => {
+    // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
+    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
+  }, []);
+
+  return (
+    <section className="container">
+      <div {...getRootProps({ className: "dropzone" })}>
+        <input {...getInputProps()} />
+        <p>Drag 'n' drop some files here, or click to select files</p>
+      </div>
+      <aside>{thumbs}</aside>
+    </section>
+  );
+}
+
 const fileTypes = ["JPG", "PNG", "GIF"];
 // Ant Inputs
 const { TextArea } = Input;
 
 const AddItem = () => {
-  const { setUploadItemData, writeToDatabase, changeHandler } =
-    useDataContext();
+  const { changeHandler } = useDataContext();
   const [file, setFile] = useState([]);
   const [text, setText] = useState("");
-
-  console.log(text);
 
   function uploadSingleFile(e) {
     setFile([...file, URL.createObjectURL(e.target.files[0])]);
@@ -78,7 +132,7 @@ const AddItem = () => {
                 name="category"
                 className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-[90%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-2xl"
               >
-                <option selected>Choose Category</option>
+                <option defaultValue>Choose Category</option>
                 <option value="PC">PC</option>
                 <option value="Components">Components</option>
                 <option value="Laptops">Laptops</option>
@@ -144,7 +198,8 @@ const AddItem = () => {
                   Upload
                 </button>
               </div> */}
-              <ImageUpload />
+              {/* <ImageUpload /> */}
+              <Previews />
             </div>
             <div className="flex m-2 w-full md:w-2/4 xl:w-2/4  flex-col border-2 border-gray-200 h-96 justify-center rounded-2xl items-center">
               <h3 className="font-bold text-xl p-4">Item Name</h3>
@@ -182,7 +237,7 @@ const AddItem = () => {
                   name="currency"
                   className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-[20%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-2xl"
                 >
-                  <option value="none" selected>
+                  <option value="none" defaultValue>
                     Choose Currency
                   </option>
                   <option value="GEL">GEL</option>

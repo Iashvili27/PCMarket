@@ -18,6 +18,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
   deleteObject,
+  uploadBytes,
 } from "firebase/storage";
 import { useUserAuth } from "./UserAuthContext";
 
@@ -33,7 +34,9 @@ export function DataContextProvider({ children }) {
   // const [sellername, setSellerName] = useState("");
   // const [title, setTitle] = useState("");
   const [imageurl, setImageUrl] = useState("");
-  const [imageUpload, setImageUpload] = useState(null);
+  const [imageUpload, setImageUpload] = useState([]);
+  const [imageFilesArray, setImageFilesArray] = useState([]);
+
   const [imageuploaddone, setImageUploadDone] = useState("");
   // Data for Users and Items
   const [items, setItems] = useState([]);
@@ -45,40 +48,47 @@ export function DataContextProvider({ children }) {
   const [itemdeletedsucecsfully, setItemDeletedSuccesfully] = useState(false);
   const [itemAddedSuccesfully, setItemAddedSuccesfully] = useState(false);
 
-  console.log(uploadItemData);
-
   // User uploads image in Database
+
   const uploadImage = async () => {
-    try {
-      if (imageUpload == null) return;
-      const imageRef = storageref(
-        storage,
-        `images/${uuid}`
-        // + ${imageUpload.name}
-      );
-      const uploadTask = uploadBytesResumable(imageRef, imageUpload);
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          // progrss function ....
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setImageUploadDone("Upload is " + progress.toFixed() + "% done");
-        },
-        (error) => {
-          // error function ....
-          console.log(error);
-        },
-        () => {
-          // complete function ....
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setImageUrl(downloadURL);
-          });
-        }
-      );
-    } catch (error) {
-      throw error;
-    }
+    const imageRef = storageref(
+      storage,
+      `images/${uuid}`
+      // + ${imageUpload.name}
+    );
+    uploadBytes(imageRef, imageFilesArray[0]).then((snapshot) => {
+      console.log("Uploaded a blob or file!");
+    });
+    // try {
+    //   if (imageUpload == null) return;
+    //   const imageRef = storageref(
+    //     storage,
+    //     `images/${uuid}`
+    //     // + ${imageUpload.name}
+    //   );
+    //   const uploadTask = uploadBytes(imageRef, imageUpload);
+    //   uploadTask.on(
+    //     "state_changed",
+    //     (snapshot) => {
+    //       // progrss function ....
+    //       const progress =
+    //         (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    //       console.log("Upload is " + progress.toFixed() + "% done");
+    //     },
+    //     (error) => {
+    //       // error function ....
+    //       console.log(error);
+    //     },
+    //     () => {
+    //       // complete function ....
+    //       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+    //         console.log(downloadURL);
+    //       });
+    //     }
+    //   );
+    // } catch (error) {
+    //   throw error;
+    // }
   };
 
   // Date when user added item
@@ -170,16 +180,6 @@ export function DataContextProvider({ children }) {
       .catch(function (error) {
         console.log("Error getting documents: ", error);
       });
-
-    // updateDoc(updateDocs, {
-    //   Views: 10,
-    // })
-    //   .then(() => {
-    //     console.log("updated");
-    //   })
-    //   .catch(function (error) {
-    //     console.log("Error getting documents: ", error);
-    //   });
   };
 
   // User Deletes Item From Database
@@ -248,8 +248,6 @@ export function DataContextProvider({ children }) {
       });
   }, [user]);
 
-  console.log(items);
-
   return (
     <dataContext.Provider
       value={{
@@ -265,16 +263,18 @@ export function DataContextProvider({ children }) {
         // setSellerName,
         // title,
         // setTitle,
+        setImageFilesArray,
+        imageFilesArray,
         setUploadItemData,
         imageurl,
         setImageUrl,
         changeHandler,
         items,
-        setImageUpload,
         uploadImage,
         setImageUploadDone,
         imageuploaddone,
         imageUpload,
+        setImageUpload,
         userdata,
         useritems,
         deleteItemFromDatabase,
