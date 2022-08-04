@@ -54,11 +54,11 @@ const Card = ({ page }) => {
                 className="h-[150px] w-[90%] flex shadow-md  m-3 bg-white rounded-lg md:w-[350px] md-h[200px]"
                 key={item.uuid}
               >
-                {item.imageurl ? (
+                {item.images.length > 0 ? (
                   <img
                     className="h-[100%] w-[40%] rounded-lg object-cover"
                     alt="img"
-                    src={`${item.imageurl}`}
+                    src={`${item.images[0]}`}
                   />
                 ) : (
                   <img className="card-image" alt="img" src={MyImage} />

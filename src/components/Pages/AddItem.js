@@ -8,23 +8,26 @@ import { useDataContext } from "../../context/DataContext";
 import { FcCancel } from "react-icons/fc";
 
 function Previews(props) {
-  const { imageFiles, setImageFiles } = useDataContext();
+  const { imageFiles, setImageFiles, uploadImage } = useDataContext();
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
       "image/*": [".jpeg", ".png", ".jpg", ".heic", ".jpg", ".heif", ".webp"],
     },
     onDrop: (acceptedFiles) => {
-      acceptedFiles.map((file) =>
-        Object.assign(file, {
-          preview: URL.createObjectURL(file),
-        })
+      setImageFiles(
+        acceptedFiles.map((file) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        )
       );
-      const selectedFilesArray = Array.from(acceptedFiles);
-      const imagesArray = selectedFilesArray.map((file) => {
-        return file;
-      });
-      setImageFiles((previousImages) => previousImages.concat(imagesArray));
+
+      // const selectedFilesArray = Array.from(acceptedFiles);
+      // const imagesArray = selectedFilesArray.map((file) => {
+      //   return file;
+      // });
+      // setImageFiles((previousImages) => previousImages.concat(imagesArray));
     },
     maxFiles: 5,
     multiple: true,
@@ -92,6 +95,9 @@ function Previews(props) {
       <aside className="w-[90%] h-[50%]  flex flex-wrap items-center justify-center">
         {thumbs}
       </aside>
+      <button type="button" onClick={uploadImage}>
+        upload
+      </button>
     </section>
   );
 }

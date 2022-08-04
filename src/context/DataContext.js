@@ -12,6 +12,7 @@ import {
   deleteDoc,
   collectionGroup,
   updateDoc,
+  arrayUnion,
 } from "firebase/firestore";
 import {
   ref as storageref,
@@ -50,24 +51,71 @@ export function DataContextProvider({ children }) {
   const [itemAddedSuccesfully, setItemAddedSuccesfully] = useState(false);
 
   // User uploads image in Database
+  console.log(imageFiles);
+  const uploadItem = async (values) => {
+    const {
+      category,
+      currency,
+      description,
+      itemName,
+      itemPrice,
+      sellerName,
+      sellerNumber,
+    } = values;
+    const docRef = doc(storedb, "users", user.email);
+    const colRef = collection(docRef, "items");
+    addDoc(colRef, {
+      date: date,
+      uuid,
+      category,
+      currency,
+      description,
+      itemName,
+      itemPrice,
+      sellerName,
+      sellerNumber,
+      userUid,
+      views: 0,
+    })
+      .then(() => {
+        console.log("item added");
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
 
-  const uploadImage = async () => {
-    const imageRef = storageref(
-      storage,
-      `images/${uuid}`
-      // + ${imageUpload.name}
+    if (imageFiles.length === 0) return;
+    await Promise.all(
+      imageFiles.map((image) => {
+        const imageRef = storageref(storage, `images/${uuid} + ${image.name}`);
+        uploadBytes(imageRef, image).then(async () => {
+          const downloadURL = await getDownloadURL(imageRef);
+          const itemsCollection = collectionGroup(storedb, "items");
+          const q = query(itemsCollection, where("uuid", "==", uuid));
+          await getDocs(q)
+            .then((collection) => {
+              collection.docs.forEach((doc) =>
+                updateDoc(doc.ref, { images: arrayUnion(downloadURL) })
+              );
+            })
+            .then(() => {
+              console.log("file and images added succesfully");
+            })
+            .catch(function (error) {
+              console.log("Error getting documents: ", error);
+            });
+        });
+      })
     );
-    uploadBytes(imageRef, imageFilesArray[0]).then((snapshot) => {
-      console.log("Uploaded a blob or file!");
-    });
+
     // try {
-    //   if (imageUpload == null) return;
+    //   if (imageFiles.length === 0) return;
     //   const imageRef = storageref(
     //     storage,
     //     `images/${uuid}`
     //     // + ${imageUpload.name}
     //   );
-    //   const uploadTask = uploadBytes(imageRef, imageUpload);
+    //   const uploadTask = uploadBytesResumable(imageRef, imageFiles[i]);
     //   uploadTask.on(
     //     "state_changed",
     //     (snapshot) => {
@@ -83,7 +131,7 @@ export function DataContextProvider({ children }) {
     //     () => {
     //       // complete function ....
     //       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-    //         console.log(downloadURL);
+    //         setImageUrl(downloadURL);
     //       });
     //     }
     //   );
@@ -126,6 +174,7 @@ export function DataContextProvider({ children }) {
     } = values;
     const docRef = doc(storedb, "users", user.email);
     const colRef = collection(docRef, "items");
+
     addDoc(colRef, {
       date: date,
       uuid,
@@ -136,12 +185,6 @@ export function DataContextProvider({ children }) {
       itemPrice,
       sellerName,
       sellerNumber,
-      // category,
-      // contactnumber,
-      // description,
-      // price,
-      // sellername,
-      // title,
       userUid,
       imageurl,
       views: 0,
@@ -163,7 +206,7 @@ export function DataContextProvider({ children }) {
   };
 
   const changeHandler = (values) => {
-    writeToDatabase(values);
+    uploadItem(values);
   };
 
   // After click on item views are adding in firebase
@@ -271,7 +314,7 @@ export function DataContextProvider({ children }) {
         setImageUrl,
         changeHandler,
         items,
-        uploadImage,
+        uploadItem,
         setImageUploadDone,
         imageuploaddone,
         imageUpload,

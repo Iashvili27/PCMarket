@@ -28,7 +28,7 @@ function CardDetails() {
           <div className="carddetails-description">
             <p>
               <span>Item Name : </span>
-              {filterItems[0].title}
+              {filterItems[0].itemName}
             </p>
             <p>
               <span>Description : </span>
@@ -36,16 +36,16 @@ function CardDetails() {
             </p>
             <p>
               <span>Price : </span>
-              {filterItems[0].price} GEL
+              {filterItems[0].itemPrice} {filterItems[0].currency}
             </p>
             <p>
               <span>Seller Number : </span>
-              {filterItems[0].contactnumber}
+              {filterItems[0].sellerNumber}
             </p>
 
             <p>
               <span>Seller Name : </span>
-              {filterItems[0].sellername}
+              {filterItems[0].sellerName}
             </p>
           </div>
         </div>
