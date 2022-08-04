@@ -66,12 +66,7 @@ const ImageUpload = () => {
             </span>
           </p>
         ) : (
-          <button
-            className="upload-btn"
-            onClick={() => {
-              console.log(imageUpload);
-            }}
-          >
+          <button className="upload-btn" onClick={uploadHandler}>
             UPLOAD {imageUpload.length} IMAGE
             {imageUpload.length === 1 ? "" : "S"}
           </button>
