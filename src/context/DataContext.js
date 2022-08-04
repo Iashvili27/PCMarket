@@ -27,6 +27,7 @@ const dataContext = createContext();
 export function DataContextProvider({ children }) {
   const { user } = useUserAuth();
   const [uploadItemData, setUploadItemData] = useState({});
+  const [imageFiles, setImageFiles] = useState([]);
   // const [category, setCategory] = useState("");
   // const [contactnumber, setContactNumber] = useState("");
   // const [description, setDescription] = useState("");
@@ -283,6 +284,8 @@ export function DataContextProvider({ children }) {
         itemAddedSuccesfully,
         setItemAddedSuccesfully,
         addViewsToDatabase,
+        imageFiles,
+        setImageFiles,
       }}
     >
       {children}
