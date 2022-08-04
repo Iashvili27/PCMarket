@@ -4,23 +4,38 @@ import { useDataContext } from "../../context/DataContext";
 import "../Sceletons/ContentLoader.css";
 import ContentLoader from "../Sceletons/ContentLoader";
 import MyImage from "../../Assets/DefaultImage.png";
+
+import ImageGallery from "react-image-gallery";
+
+const images = [
+  {
+    original: "https://picsum.photos/id/1018/1000/600/",
+    thumbnail: "https://picsum.photos/id/1018/250/150/",
+  },
+  {
+    original: "https://picsum.photos/id/1015/1000/600/",
+    thumbnail: "https://picsum.photos/id/1015/250/150/",
+  },
+  {
+    original: "https://picsum.photos/id/1019/1000/600/",
+    thumbnail: "https://picsum.photos/id/1019/250/150/",
+  },
+];
+
 function CardDetails() {
   const { items } = useDataContext();
   let { id } = useParams();
 
   const filterItems = items.filter((item) => item.uuid === id);
-
+  console.log(filterItems);
   return (
-    <div className="carddetails-container">
+    <div className="h-screen">
+      <ImageGallery items={images} />
       {items.length > 0 ? (
-        <div className="carddetails-itempage">
-          <div className="carddetails-image-container">
-            {filterItems[0].imageurl ? (
-              <img
-                className="card-image"
-                alt="img"
-                src={`${filterItems[0].imageurl}`}
-              />
+        <div className="h-screen">
+          <div className="w-[500px] h-[500px]">
+            {filterItems[0].images?.[0] ? (
+              <p>hey</p>
             ) : (
               <img className="card-image" alt="img" src={MyImage} />
             )}
