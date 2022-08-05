@@ -9,13 +9,18 @@ const Card = ({ page }) => {
   const { items, addViewsToDatabase } = useDataContext();
   const { search, category } = useSearchContext();
   const [loading, setLoading] = useState(true);
+
+  const cardClickHandler = (uuid, views) => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    addViewsToDatabase(uuid, views);
+  };
+
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
   }, []);
 
-  console.log(items);
   return (
     <div className="w-full h-full">
       {category ? <h3>{category}</h3> : null}
@@ -41,15 +46,12 @@ const Card = ({ page }) => {
               } else {
                 return null;
               }
-              // else if (search === "") {
-              //   return item;
-              // } else if (item.title.toLowerCase().includes(search.toLowerCase())) {
-              //   return item;
-              // } else return null;
             })
             .map((item, index) => (
               <Link
-                onClick={() => addViewsToDatabase(item.uuid, item.views)}
+                onClick={() => {
+                  cardClickHandler(item.uuid, item.views);
+                }}
                 to={`${page}${item.uuid}`}
                 className="h-[150px] w-[90%] flex shadow-md  m-3 bg-white rounded-lg md:w-[350px] md-h[200px]"
                 key={item.uuid}

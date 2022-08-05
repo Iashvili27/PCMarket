@@ -3,14 +3,7 @@ import { FcCancel } from "react-icons/fc";
 import { useDataContext } from "../../context/DataContext";
 
 const ImageUpload = () => {
-  const {
-    imageUpload,
-    setImageUpload,
-    uploadImage,
-    setImageFilesArray,
-    imageFilesArray,
-  } = useDataContext();
-  console.log(imageUpload);
+  const { imageUpload, setImageUpload, uploadImage } = useDataContext();
   const onSelectFile = (e) => {
     const selectedFiles = e.target.files;
     const selectedFilesArray = Array.from(selectedFiles);

@@ -16,7 +16,7 @@ import {
 } from "firebase/firestore";
 import {
   ref as storageref,
-  uploadBytesResumable,
+  // uploadBytesResumable,
   getDownloadURL,
   deleteObject,
   uploadBytes,
@@ -27,19 +27,8 @@ const dataContext = createContext();
 
 export function DataContextProvider({ children }) {
   const { user } = useUserAuth();
-  const [uploadItemData, setUploadItemData] = useState({});
   const [imageFiles, setImageFiles] = useState([]);
-  // const [category, setCategory] = useState("");
-  // const [contactnumber, setContactNumber] = useState("");
-  // const [description, setDescription] = useState("");
-  // const [price, setPrice] = useState("");
-  // const [sellername, setSellerName] = useState("");
-  // const [title, setTitle] = useState("");
-  const [imageurl, setImageUrl] = useState("");
-  const [imageUpload, setImageUpload] = useState([]);
-  const [imageFilesArray, setImageFilesArray] = useState([]);
 
-  const [imageuploaddone, setImageUploadDone] = useState("");
   // Data for Users and Items
   const [items, setItems] = useState([]);
   const [userdata, setUserData] = useState([]);
@@ -52,8 +41,13 @@ export function DataContextProvider({ children }) {
   const [itemImageAddedSuccesfully, setItemImageAddedSuccesfully] =
     useState(false);
 
-  // User uploads image in Database
-  console.log(imageFiles);
+  // User uploads image and file in Database
+  // User Adds Item In Database
+
+  const changeHandler = (values) => {
+    uploadItem(values);
+  };
+
   const uploadItem = async (values) => {
     const {
       category,
@@ -81,13 +75,14 @@ export function DataContextProvider({ children }) {
     })
       .then(() => {
         setItemAddedSuccesfully(true);
+        setUuid("");
       })
       .catch((error) => {
         console.log("Error getting documents: ", error);
       });
     if (imageFiles.length === 0) return;
     await Promise.all(
-      imageFiles.map((image) => {
+      imageFiles.forEach((image) => {
         const imageRef = storageref(storage, `images/${uuid} + ${image.name}`);
         uploadBytes(imageRef, image).then(async () => {
           const downloadURL = await getDownloadURL(imageRef);
@@ -160,55 +155,6 @@ export function DataContextProvider({ children }) {
   const itemDateDay = itemDate.getDate();
   const itemDateMonth = months[itemDate.getMonth()];
   const date = `${itemDateDay}/${itemDateMonth}`;
-
-  // User Adds Item In Database
-
-  const writeToDatabase = (values) => {
-    const {
-      category,
-      currency,
-      description,
-      itemName,
-      itemPrice,
-      sellerName,
-      sellerNumber,
-    } = values;
-    const docRef = doc(storedb, "users", user.email);
-    const colRef = collection(docRef, "items");
-
-    addDoc(colRef, {
-      date: date,
-      uuid,
-      category,
-      currency,
-      description,
-      itemName,
-      itemPrice,
-      sellerName,
-      sellerNumber,
-      userUid,
-      imageurl,
-      views: 0,
-    })
-      .then(() => {
-        setUuid(uid());
-        // setTitle("");
-        // setCategory("");
-        // setContactNumber("");
-        // setDescription("");
-        // setPrice("");
-        // setSellerName("");
-        setImageUrl("");
-        setItemAddedSuccesfully(true);
-      })
-      .catch((error) => {
-        console.log("Error getting documents: ", error);
-      });
-  };
-
-  const changeHandler = (values) => {
-    uploadItem(values);
-  };
 
   // After click on item views are adding in firebase
 
@@ -308,18 +254,9 @@ export function DataContextProvider({ children }) {
         // setSellerName,
         // title,
         // setTitle,
-        setImageFilesArray,
-        imageFilesArray,
-        setUploadItemData,
-        imageurl,
-        setImageUrl,
+
         changeHandler,
         items,
-        uploadItem,
-        setImageUploadDone,
-        imageuploaddone,
-        imageUpload,
-        setImageUpload,
         userdata,
         useritems,
         deleteItemFromDatabase,

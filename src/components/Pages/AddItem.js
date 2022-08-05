@@ -3,13 +3,13 @@ import { useDropzone } from "react-dropzone";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Input } from "antd";
-import { AddItemTextField } from "./AddItemTextField";
+import { AddItemTextField } from "../TextFields/AddItemTextField";
 import { useDataContext } from "../../context/DataContext";
 import { FcCancel } from "react-icons/fc";
 import ItemAddedModal from "../Modal/ItemAddedModal";
 
 function Previews(props) {
-  const { imageFiles, setImageFiles, uploadImage } = useDataContext();
+  const { imageFiles, setImageFiles } = useDataContext();
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
@@ -40,6 +40,7 @@ function Previews(props) {
       key={file.name}
     >
       <img
+        alt=""
         className="w-full h-full object-cover rounded-lg"
         src={file.preview}
         // Revoke data uri after image is loaded
@@ -61,6 +62,7 @@ function Previews(props) {
     // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
     return () =>
       imageFiles.forEach((file) => URL.revokeObjectURL(file.preview));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

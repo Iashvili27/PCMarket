@@ -1,6 +1,6 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import { SignUpTextField } from "./SignUpTextField";
+import { SignUpTextField } from "../TextFields/SignUpTextField";
 import * as Yup from "yup";
 import { useUserAuth } from "../../context/UserAuthContext";
 import { storedb } from "../../firebase";
@@ -66,7 +66,7 @@ export const Signup = () => {
                 <img
                   src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
                   className="w-full"
-                  alt="Sample image"
+                  alt=""
                 />
               </div>
               <div className="xl:ml-20 xl:w-3/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0 ">

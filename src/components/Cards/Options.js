@@ -2,7 +2,7 @@ import React from "react";
 
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import { OptionsField } from "./OptionsField";
+import { OptionsField } from "../TextFields/OptionsField";
 import { useUserAuth } from "../../context/UserAuthContext";
 
 function Options() {

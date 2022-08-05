@@ -14,9 +14,13 @@ function CardDetails() {
     <div className="h-screen">
       {items.length > 0 ? (
         <div className="h-screen">
-          <div className="">
+          <div className="w-[400px] h-[400px]">
             {filterItems[0].images?.[0] ? (
-              <p>as</p>
+              <img
+                className="object-cover w-full h-full"
+                alt="img"
+                src={filterItems[0].images[0]}
+              />
             ) : (
               <img className="card-image" alt="img" src={MyImage} />
             )}

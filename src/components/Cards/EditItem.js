@@ -1,12 +1,10 @@
 import React from "react";
-import { useDataContext } from "../../context/DataContext";
-import { useParams } from "react-router-dom";
+// import { useDataContext } from "../../context/DataContext";
+// import { useParams } from "react-router-dom";
 function EditItem() {
-  let { id } = useParams();
-  const { items } = useDataContext();
-  const filterItems = items.filter((item) => item.uuid === id);
-  console.log(filterItems);
-
+  // let { id } = useParams();
+  // const { items } = useDataContext();
+  // const filterItems = items.filter((item) => item.uuid === id);
   return <div>EditItem</div>;
 }
 

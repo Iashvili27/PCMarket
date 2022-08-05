@@ -12,8 +12,12 @@ import UserItems from "./components/Cards/UserItems";
 import Options from "./components/Cards/Options";
 import EditItem from "./components/Cards/EditItem";
 import EmailVerifyPage from "./components/Pages/EmailVerifyPage";
+import { useUserAuth } from "./context/UserAuthContext";
+import UserNotLoggedIn from "./components/Pages/Error/UserNotLoggedIn";
 
 function App() {
+  const { user } = useUserAuth();
+
   return (
     <BrowserRouter>
       <div className="min-h-screen">
@@ -25,12 +29,22 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/signup" element={<Signup />}></Route>
             <Route path="/verify" element={<EmailVerifyPage />}></Route>
-            <Route path="/" element={<UserPage />}>
-              <Route path="additem" element={<AddItem />}></Route>
-              <Route path="myproducts" element={<UserItems />} />
-              <Route path="options" element={<Options />} />
-              <Route path="edititem:id" element={<EditItem />} />
-            </Route>
+            {user ? (
+              <Route path="/" element={<UserPage />}>
+                <Route path="additem" element={<AddItem />} />
+                <Route path="myproducts" element={<UserItems />} />
+                <Route path="options" element={<Options />} />
+                <Route path="edititem:id" element={<EditItem />} />
+              </Route>
+            ) : (
+              <Route path="/" element={<UserNotLoggedIn />}>
+                <Route path="additem" element={<UserNotLoggedIn />} />
+                <Route path="myproducts" element={<UserNotLoggedIn />} />
+                <Route path="options" element={<UserNotLoggedIn />} />
+                <Route path="edititem:id" element={<UserNotLoggedIn />} />
+              </Route>
+            )}
+
             <Route path="/contact" element={<Contact />}></Route>
           </Routes>
         </div>
