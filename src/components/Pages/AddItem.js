@@ -147,7 +147,7 @@ const AddItem = () => {
                 <Field
                   as="select"
                   name="category"
-                  className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-[90%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-2xl"
+                  className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-[90%] p-2.5     rounded-2xl"
                 >
                   <option defaultValue>Choose Category</option>
                   <option value="PC">PC</option>
@@ -196,7 +196,7 @@ const AddItem = () => {
                   <Field
                     as="select"
                     name="currency"
-                    className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-[20%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-2xl"
+                    className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-[20%] p-2.5  ark:text-white  rounded-2xl"
                   >
                     <option value="none" defaultValue>
                       Choose Currency
