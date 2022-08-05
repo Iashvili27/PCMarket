@@ -90,9 +90,6 @@ function Previews(props) {
       <aside className="w-[90%] h-[50%]  flex flex-wrap items-center justify-center">
         {thumbs}
       </aside>
-      <button type="button" onClick={uploadImage}>
-        upload
-      </button>
     </section>
   );
 }

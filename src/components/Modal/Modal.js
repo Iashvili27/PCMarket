@@ -3,6 +3,7 @@ import { useDataContext } from "../../context/DataContext";
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationIcon } from "@heroicons/react/outline";
+import { CheckIcon } from "@heroicons/react/outline";
 
 function Modal(props) {
   const cancelButtonRef = useRef(null);
@@ -57,8 +58,8 @@ function Modal(props) {
                     <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                       <div className="sm:flex sm:items-start">
                         <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                          <ExclamationIcon
-                            className="h-6 w-6 text-red-600"
+                          <CheckIcon
+                            className="h-6 w-6 text-blue-700"
                             aria-hidden="true"
                           />
                         </div>
@@ -67,7 +68,7 @@ function Modal(props) {
                             as="h3"
                             className="text-lg leading-6 font-medium text-gray-900"
                           >
-                            Item was successfully deleted.
+                            Item Succesfully Removed!
                           </Dialog.Title>
                           <div className="mt-2">
                             <p className="text-sm text-gray-500">
