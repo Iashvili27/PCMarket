@@ -6,6 +6,7 @@ import { Input } from "antd";
 import { AddItemTextField } from "./AddItemTextField";
 import { useDataContext } from "../../context/DataContext";
 import { FcCancel } from "react-icons/fc";
+import ItemAddedModal from "../Modal/ItemAddedModal";
 
 function Previews(props) {
   const { imageFiles, setImageFiles, uploadImage } = useDataContext();
@@ -22,12 +23,6 @@ function Previews(props) {
           })
         )
       );
-
-      // const selectedFilesArray = Array.from(acceptedFiles);
-      // const imagesArray = selectedFilesArray.map((file) => {
-      //   return file;
-      // });
-      // setImageFiles((previousImages) => previousImages.concat(imagesArray));
     },
     maxFiles: 5,
     multiple: true,
@@ -106,6 +101,7 @@ function Previews(props) {
 const { TextArea } = Input;
 
 const AddItem = () => {
+  const [openModal, setOpenModal] = useState(false);
   const { changeHandler } = useDataContext();
 
   const validate = Yup.object({
@@ -123,119 +119,126 @@ const AddItem = () => {
   });
 
   return (
-    <Formik
-      initialValues={{
-        category: "",
-        itemName: "",
-        sellerNumber: "",
-        sellerName: "",
-        itemPrice: "",
-        currency: "",
-        description: "",
-      }}
-      validationSchema={validate}
-      onSubmit={(values) => {
-        changeHandler(values);
-      }}
-    >
-      {(formik) => (
-        <div className="min-h-[50vh] flex flex-col items-center p-4">
-          <Form
-            className="flex flex-col p-3 w-full items-center"
-            onSubmit={formik.handleSubmit}
-          >
-            <div className="flex m-2 w-full md:w-2/4 xl:w-2/4 flex-col  border-2 border-gray-200 h-52 justify-center rounded-2xl items-center">
-              <h3 className="p-4 font-bold text-xl">Choose item category</h3>
-              <Field
-                as="select"
-                name="category"
-                className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-[90%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-2xl"
-              >
-                <option defaultValue>Choose Category</option>
-                <option value="PC">PC</option>
-                <option value="Components">Components</option>
-                <option value="Laptops">Laptops</option>
-                <option value="Consoles">Consoles</option>
-                <option value="Monitors">Monitors</option>
-                <option value="Peripherals">Peripherals</option>
-                <option value="Accessories">Accessories</option>
-              </Field>
-            </div>
-            <div className="flex m-2 w-full md:w-2/4 xl:w-2/4   flex-col border-2 border-gray-200 min-h-min rounded-2xl items-center">
-              <Previews />
-            </div>
-            <div className="flex m-2 w-full md:w-2/4 xl:w-2/4  flex-col border-2 border-gray-200 h-96 justify-center rounded-2xl items-center">
-              <h3 className="font-bold text-xl p-4">Item Name</h3>
-              <AddItemTextField
-                name="itemName"
-                holder={"Item name"}
-                type="itemName"
-              />
-
-              <h3 className="font-bold text-xl p-4">Description</h3>
-              <TextArea
-                autoSize
-                name="description"
-                className="w-[90%] h-[50%] p-4"
-                rows={4}
-                placeholder="Write item description. Maximum 250 letters."
-                maxLength={250}
-                bordered
-                onChange={(value) =>
-                  formik.setFieldValue("description", value.target.value)
-                }
-              />
-            </div>
-            <div className="flex  m-2 w-full md:w-2/4 xl:w-2/4 flex-col border-2 border-gray-200 h-52 justify-center rounded-2xl items-center">
-              <div className="p-4 font-bold text-xl">Enter Item Price</div>
-              <div className="flex flex-row w-[90%] ">
-                <AddItemTextField
-                  name="itemPrice"
-                  holder={"Enter Price"}
-                  type="itemPrice"
-                />
-
+    <>
+      <Formik
+        initialValues={{
+          category: "",
+          itemName: "",
+          sellerNumber: "",
+          sellerName: "",
+          itemPrice: "",
+          currency: "",
+          description: "",
+        }}
+        validationSchema={validate}
+        onSubmit={(values) => {
+          changeHandler(values);
+          console.log("hello");
+          setOpenModal(true);
+        }}
+      >
+        {(formik) => (
+          <div className="min-h-[50vh] flex flex-col items-center p-4">
+            <Form
+              className="flex flex-col p-3 w-full items-center"
+              onSubmit={formik.handleSubmit}
+            >
+              <div className="flex m-2 w-full md:w-2/4 xl:w-2/4 flex-col  border-2 border-gray-200 h-52 justify-center rounded-2xl items-center">
+                <h3 className="p-4 font-bold text-xl">Choose item category</h3>
                 <Field
                   as="select"
-                  name="currency"
-                  className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-[20%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-2xl"
+                  name="category"
+                  className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-[90%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-2xl"
                 >
-                  <option value="none" defaultValue>
-                    Choose Currency
-                  </option>
-                  <option value="GEL">GEL</option>
-                  <option value="USD">USD</option>
+                  <option defaultValue>Choose Category</option>
+                  <option value="PC">PC</option>
+                  <option value="Components">Components</option>
+                  <option value="Laptops">Laptops</option>
+                  <option value="Consoles">Consoles</option>
+                  <option value="Monitors">Monitors</option>
+                  <option value="Peripherals">Peripherals</option>
+                  <option value="Accessories">Accessories</option>
                 </Field>
               </div>
-            </div>
-            <div className="flex m-2 w-full md:w-2/4 xl:w-2/4 flex-col border-2 border-gray-200 h-52 justify-center rounded-2xl items-center">
-              <>
-                <label htmlFor="sellername">Enter Seller Name</label>
+              <div className="flex m-2 w-full md:w-2/4 xl:w-2/4   flex-col border-2 border-gray-200 min-h-min rounded-2xl items-center">
+                <Previews />
+              </div>
+              <div className="flex m-2 w-full md:w-2/4 xl:w-2/4  flex-col border-2 border-gray-200 h-96 justify-center rounded-2xl items-center">
+                <h3 className="font-bold text-xl p-4">Item Name</h3>
                 <AddItemTextField
-                  name="sellerName"
-                  holder={"Seller name"}
-                  type="sellerName"
+                  name="itemName"
+                  holder={"Item name"}
+                  type="itemName"
                 />
-              </>
-              <>
-                <label htmlFor="sellernumber">Enter Phone Number</label>
-                <AddItemTextField
-                  name="sellerNumber"
-                  holder={"Phone number"}
-                  type="phoneNumber"
+
+                <h3 className="font-bold text-xl p-4">Description</h3>
+                <TextArea
+                  autoSize
+                  name="description"
+                  className="w-[90%] h-[50%] p-4"
+                  rows={4}
+                  placeholder="Write item description. Maximum 250 letters."
+                  maxLength={250}
+                  bordered
+                  onChange={(value) =>
+                    formik.setFieldValue("description", value.target.value)
+                  }
                 />
-              </>
-            </div>
-            <button
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              type="submit"
-            >
-              Add Item
-            </button>
-          </Form>
-        </div>
+              </div>
+              <div className="flex  m-2 w-full md:w-2/4 xl:w-2/4 flex-col border-2 border-gray-200 h-52 justify-center rounded-2xl items-center">
+                <div className="p-4 font-bold text-xl">Enter Item Price</div>
+                <div className="flex flex-row w-[90%] ">
+                  <AddItemTextField
+                    name="itemPrice"
+                    holder={"Enter Price"}
+                    type="itemPrice"
+                  />
+
+                  <Field
+                    as="select"
+                    name="currency"
+                    className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-[20%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded-2xl"
+                  >
+                    <option value="none" defaultValue>
+                      Choose Currency
+                    </option>
+                    <option value="GEL">GEL</option>
+                    <option value="USD">USD</option>
+                  </Field>
+                </div>
+              </div>
+              <div className="flex m-2 w-full md:w-2/4 xl:w-2/4 flex-col border-2 border-gray-200 h-52 justify-center rounded-2xl items-center">
+                <>
+                  <label htmlFor="sellername">Enter Seller Name</label>
+                  <AddItemTextField
+                    name="sellerName"
+                    holder={"Seller name"}
+                    type="sellerName"
+                  />
+                </>
+                <>
+                  <label htmlFor="sellernumber">Enter Phone Number</label>
+                  <AddItemTextField
+                    name="sellerNumber"
+                    holder={"Phone number"}
+                    type="phoneNumber"
+                  />
+                </>
+              </div>
+              <button
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="submit"
+              >
+                Add Item
+              </button>
+            </Form>
+          </div>
+        )}
+      </Formik>
+      {openModal && (
+        <ItemAddedModal openModal={openModal} closeModal={setOpenModal} />
       )}
-    </Formik>
+    </>
   );
 };
 

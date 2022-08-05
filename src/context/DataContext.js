@@ -47,8 +47,10 @@ export function DataContextProvider({ children }) {
   const [uuid, setUuid] = useState(uid());
   const userUid = user ? user.uid : null;
   // States for modal
-  const [itemdeletedsucecsfully, setItemDeletedSuccesfully] = useState(false);
+  const [itemDeletedSucecsfully, setItemDeletedSuccesfully] = useState(false);
   const [itemAddedSuccesfully, setItemAddedSuccesfully] = useState(false);
+  const [itemImageAddedSuccesfully, setItemImageAddedSuccesfully] =
+    useState(false);
 
   // User uploads image in Database
   console.log(imageFiles);
@@ -78,12 +80,11 @@ export function DataContextProvider({ children }) {
       views: 0,
     })
       .then(() => {
-        console.log("item added");
+        setItemAddedSuccesfully(true);
       })
       .catch((error) => {
         console.log("Error getting documents: ", error);
       });
-
     if (imageFiles.length === 0) return;
     await Promise.all(
       imageFiles.map((image) => {
@@ -99,7 +100,7 @@ export function DataContextProvider({ children }) {
               );
             })
             .then(() => {
-              console.log("file and images added succesfully");
+              setItemImageAddedSuccesfully(true);
             })
             .catch(function (error) {
               console.log("Error getting documents: ", error);
@@ -322,13 +323,15 @@ export function DataContextProvider({ children }) {
         userdata,
         useritems,
         deleteItemFromDatabase,
-        itemdeletedsucecsfully,
+        itemDeletedSucecsfully,
         setItemDeletedSuccesfully,
         itemAddedSuccesfully,
         setItemAddedSuccesfully,
         addViewsToDatabase,
         imageFiles,
         setImageFiles,
+        itemImageAddedSuccesfully,
+        setItemImageAddedSuccesfully,
       }}
     >
       {children}

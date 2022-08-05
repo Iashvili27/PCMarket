@@ -101,7 +101,7 @@ function UserItems() {
       {openModal && (
         <Modal
           itemuid={modalData}
-          modal={openModal}
+          openModal={openModal}
           closeModal={setOpenModal}
         />
       )}

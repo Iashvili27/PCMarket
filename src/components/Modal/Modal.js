@@ -9,77 +9,26 @@ function Modal(props) {
 
   const {
     deleteItemFromDatabase,
-    itemdeletedsucecsfully,
+    itemDeletedSucecsfully,
     setItemDeletedSuccesfully,
   } = useDataContext();
 
-  const submitHandler = () => {
-    props.closeModal(false);
-    setItemDeletedSuccesfully(false);
-    window.location.reload();
-  };
-
   const deletedItemHandler = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     props.closeModal(false);
     setItemDeletedSuccesfully(false);
     window.location.reload();
   };
 
   return (
-    // <div className="modal">
-    //   {!itemdeletedsucecsfully ? (
-    //     <>
-    //       <div
-    //         onClick={() => props.closeModal(false)}
-    //         className="modalBackground"
-    //       />
-    //       <div className="modalContainer">
-    //         <div className="titleCloseBtn">
-    //           <button onClick={() => props.closeModal(false)}>X</button>
-    //         </div>
-    //         <div className="title">
-    //           <h3>Are your sure you want to delete item?</h3>
-    //         </div>
-    //         <div className="body">
-    //           <p>Item can't be restored after deletion!</p>
-    //         </div>
-    //         <div className="footer">
-    //           <button onClick={() => props.closeModal(false)}>Cancel</button>
-    //           <button
-    //             onClick={() => {
-    //               deleteItemFromDatabase(props.itemuid);
-    //             }}
-    //           >
-    //             Delete
-    //           </button>
-    //         </div>
-    //       </div>
-    //     </>
-    //   ) : (
-    //     <>
-    //       <div onClick={deletedItemHandler} className="modalBackground" />
-    //       <div className="modalContainer">
-    //         <div className="titleCloseBtn">
-    //           <button onClick={submitHandler}>X</button>
-    //         </div>
-    //         <div className="title">
-    //           <h3>Item Was Deleted Succesfully.</h3>
-    //         </div>
-    //         <div className="footer">
-    //           <button onClick={submitHandler}>Cancel</button>
-    //         </div>
-    //       </div>
-    //     </>
-    //   )}
-    // </div>
     <>
-      {!itemdeletedsucecsfully ? (
-        <Transition.Root show={props.modal} as={Fragment}>
+      {itemDeletedSucecsfully === true ? (
+        <Transition.Root show={props.openModal} as={Fragment}>
           <Dialog
             as="div"
             className="relative z-10"
             initialFocus={cancelButtonRef}
-            onClose={props.closeModal}
+            onClose={deletedItemHandler}
           >
             <Transition.Child
               as={Fragment}
@@ -118,13 +67,12 @@ function Modal(props) {
                             as="h3"
                             className="text-lg leading-6 font-medium text-gray-900"
                           >
-                            Deactivate account
+                            Item was successfully deleted.
                           </Dialog.Title>
                           <div className="mt-2">
                             <p className="text-sm text-gray-500">
-                              Are you sure you want to deactivate your account?
-                              All of your data will be permanently removed. This
-                              action cannot be undone.
+                              Your item was successfully removed.. You can
+                              continue browsing.
                             </p>
                           </div>
                         </div>
@@ -134,7 +82,7 @@ function Modal(props) {
                       <button
                         type="button"
                         className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                        onClick={submitHandler}
+                        onClick={deletedItemHandler}
                         ref={cancelButtonRef}
                       >
                         Cancel
@@ -147,13 +95,8 @@ function Modal(props) {
           </Dialog>
         </Transition.Root>
       ) : (
-        <Transition.Root show={props.modal} as={Fragment}>
-          <Dialog
-            as="div"
-            className="relative z-10"
-            initialFocus={cancelButtonRef}
-            onClose={props.closeModal}
-          >
+        <Transition.Root show={props.openModal} as={Fragment}>
+          <Dialog as="div" className="relative z-10" onClose={props.closeModal}>
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -191,12 +134,12 @@ function Modal(props) {
                             as="h3"
                             className="text-lg leading-6 font-medium text-gray-900"
                           >
-                            Deactivate account
+                            Delete Item
                           </Dialog.Title>
                           <div className="mt-2">
                             <p className="text-sm text-gray-500">
-                              Are you sure you want to deactivate your account?
-                              All of your data will be permanently removed. This
+                              Are you sure you want to delete your item? All of
+                              item's data will be permanently removed. This
                               action cannot be undone.
                             </p>
                           </div>
@@ -211,7 +154,7 @@ function Modal(props) {
                           deleteItemFromDatabase(props.itemuid);
                         }}
                       >
-                        Deactivate
+                        Delete
                       </button>
                       <button
                         type="button"
