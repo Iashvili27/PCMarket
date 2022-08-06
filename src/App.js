@@ -30,21 +30,26 @@ function App() {
             <Route path="/signup" element={<Signup />}></Route>
             <Route path="/verify" element={<EmailVerifyPage />}></Route>
             {user ? (
-              <Route path="/" element={<UserPage />}>
-                <Route path="additem" element={<AddItem />} />
-                <Route path="myproducts" element={<UserItems />} />
-                <Route path="options" element={<Options />} />
-                <Route path="edititem:id" element={<EditItem />} />
-              </Route>
+              <>
+                <Route path="/verify" element={<EmailVerifyPage />}></Route>
+                <Route path="/" element={<UserPage />}>
+                  <Route path="additem" element={<AddItem />} />
+                  <Route path="myproducts" element={<UserItems />} />
+                  <Route path="options" element={<Options />} />
+                  <Route path="edititem:id" element={<EditItem />} />
+                </Route>
+              </>
             ) : (
-              <Route path="/" element={<UserNotLoggedIn />}>
-                <Route path="additem" element={<UserNotLoggedIn />} />
-                <Route path="myproducts" element={<UserNotLoggedIn />} />
-                <Route path="options" element={<UserNotLoggedIn />} />
-                <Route path="edititem:id" element={<UserNotLoggedIn />} />
-              </Route>
+              <>
+                <Route path="/verify" element={<UserNotLoggedIn />}></Route>
+                <Route path="/" element={<UserNotLoggedIn />}>
+                  <Route path="additem" element={<UserNotLoggedIn />} />
+                  <Route path="myproducts" element={<UserNotLoggedIn />} />
+                  <Route path="options" element={<UserNotLoggedIn />} />
+                  <Route path="edititem:id" element={<UserNotLoggedIn />} />
+                </Route>
+              </>
             )}
-
             <Route path="/contact" element={<Contact />}></Route>
           </Routes>
         </div>

@@ -14,6 +14,7 @@ function UserPage() {
     { name: "Add Item", to: "/additem", current: false },
     { name: "My Products", to: "/myproducts", current: false },
     { name: "Settings", to: "/options", current: false },
+    { name: "Verify", to: "/verify", current: false },
   ];
   return (
     <>

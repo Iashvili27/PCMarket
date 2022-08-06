@@ -23,7 +23,7 @@ function UserItems() {
   return (
     <>
       {loading ? (
-        <div className="useritems-loader">
+        <div className="w-full h-full flex justify-center items-center">
           <CardLoader />
         </div>
       ) : (
@@ -91,8 +91,8 @@ function UserItems() {
               })}
             </>
           ) : (
-            <div className="useritems-loader">
-              <h3>You don't have any item.</h3>
+            <div className="w-full h-full flex justify-center items-center">
+              <h3 className="font-bold text-xl">You Don't Have Any Items...</h3>
             </div>
           )}
         </>

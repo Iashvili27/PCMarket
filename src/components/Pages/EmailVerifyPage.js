@@ -9,12 +9,12 @@ function EmailVerifyPage(props) {
   const navigate = useNavigate();
   const { user } = useUserAuth();
   const [emailVerify, setEmailVerify] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
-      setLoading(false);
-    }, 2000);
+      setLoading(true);
+    }, 1000);
     if (user.emailVerified === false) {
       const interval = setInterval(function () {
         user?.reload().then(() => setEmailVerify(user.emailVerified));
@@ -30,8 +30,8 @@ function EmailVerifyPage(props) {
 
   return (
     <>
-      {loading ? (
-        <div>
+      {!loading ? (
+        <div className="min-h-[80vh] bg-[#F8F8F8] flex justify-center items-center ">
           <CardLoader />
         </div>
       ) : (
@@ -95,7 +95,9 @@ function EmailVerifyPage(props) {
                 </div>
                 <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                   <button
-                    onClick={navigate("/")}
+                    onClick={() => {
+                      navigate("/");
+                    }}
                     type="button"
                     className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                   >
