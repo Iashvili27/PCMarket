@@ -36,11 +36,11 @@ export const Signup = () => {
         email: values.email,
         userid: auth.currentUser.uid,
       });
-      if (auth.currentUser) {
-        navigate("/verify");
-      }
     } catch (err) {
       console.log(err);
+    }
+    if (auth.currentUser) {
+      navigate("/verify");
     }
   };
 

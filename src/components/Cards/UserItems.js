@@ -44,15 +44,15 @@ function UserItems() {
                     </div>
                     <div className="flex w-full h-[70%]">
                       <div className="w-[30%] items-center justify-center flex">
-                        {item.imageurl ? (
+                        {item.images ? (
                           <img
-                            className="w-[100px] h-[100px]"
+                            className="w-[100px] h-[100px] object-cover"
                             alt="img"
-                            src={`${item.imageurl}`}
+                            src={`${item.images[0]}`}
                           />
                         ) : (
                           <img
-                            className="w-[100px] h-[100px]"
+                            className="w-[100px] h-[100px] "
                             alt="img"
                             src={MyImage}
                           />

@@ -9,12 +9,15 @@ import {
   sendEmailVerification,
   updatePassword,
 } from "firebase/auth";
+import { storage, storedb } from "../firebase";
+import { doc, getDoc } from "firebase/firestore";
 import { auth } from "../firebase";
 
 const userAuthContext = createContext();
 
 export function UserAuthContextProvider({ children }) {
   const [user, setUser] = useState({});
+  const [userData, setUserData] = useState([]);
 
   const updateUserPassword = (newPassword) => {
     updatePassword(auth.currentUser, newPassword)
@@ -52,6 +55,18 @@ export function UserAuthContextProvider({ children }) {
       // console.log("Auth", currentuser);
       setUser(currentuser);
     });
+    setTimeout(() => {
+      if (user && user.email) {
+        const docRef = doc(storedb, "users", `${user.email}`);
+        getDoc(docRef)
+          .then((doc) => {
+            setUserData(doc.data());
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    }, 500);
 
     return () => {
       unsubscribe();
@@ -62,6 +77,8 @@ export function UserAuthContextProvider({ children }) {
     <userAuthContext.Provider
       value={{
         user,
+        userData,
+        setUserData,
         logIn,
         signUp,
         logOut,

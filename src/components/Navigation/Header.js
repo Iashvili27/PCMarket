@@ -9,11 +9,13 @@ import { ChevronDownIcon } from "@heroicons/react/solid";
 
 function Header() {
   const [searchResponsive, setSearchResponsive] = useState(true);
-  const { user, logOut } = useUserAuth();
+  const { user, logOut, userData, setUserData } = useUserAuth();
   const { searchHandler, setCategory } = useSearchContext();
-  const { userdata } = useDataContext();
   const [inputValue, setInputValue] = useState("");
   const [userMenu, setUserMenu] = useState(true);
+
+  console.log(user);
+  console.log(userData);
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
@@ -41,6 +43,7 @@ function Header() {
     try {
       await logOut();
       setUserMenu(!userMenu);
+      setUserData([]);
     } catch (err) {
       console.log(err.message);
     }
@@ -142,11 +145,11 @@ function Header() {
           </button>
         </div>
         <div className="flex items-center md:w-[150px] md:flex md:align-center md:justify-center">
-          {user && userdata ? (
+          {user && userData ? (
             <Menu as="div" className="relative inline-block text-left z-20">
               <div>
                 <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
-                  {userdata.firstname}
+                  {userData.firstname}
                   <ChevronDownIcon
                     className="-mr-1 ml-2 h-5 w-5"
                     aria-hidden="true"

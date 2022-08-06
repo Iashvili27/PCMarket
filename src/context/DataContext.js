@@ -31,7 +31,7 @@ export function DataContextProvider({ children }) {
 
   // Data for Users and Items
   const [items, setItems] = useState([]);
-  const [userdata, setUserData] = useState([]);
+
   const [useritems, setUserItems] = useState([]);
   const [uuid, setUuid] = useState(uid());
   const userUid = user ? user.uid : null;
@@ -81,28 +81,27 @@ export function DataContextProvider({ children }) {
         console.log("Error getting documents: ", error);
       });
     if (imageFiles.length === 0) return;
-    await Promise.all(
-      imageFiles.forEach((image) => {
-        const imageRef = storageref(storage, `images/${uuid} + ${image.name}`);
-        uploadBytes(imageRef, image).then(async () => {
-          const downloadURL = await getDownloadURL(imageRef);
-          const itemsCollection = collectionGroup(storedb, "items");
-          const q = query(itemsCollection, where("uuid", "==", uuid));
-          await getDocs(q)
-            .then((collection) => {
-              collection.docs.forEach((doc) =>
-                updateDoc(doc.ref, { images: arrayUnion(downloadURL) })
-              );
-            })
-            .then(() => {
-              setItemImageAddedSuccesfully(true);
-            })
-            .catch(function (error) {
-              console.log("Error getting documents: ", error);
-            });
-        });
-      })
-    );
+
+    imageFiles.forEach((image) => {
+      const imageRef = storageref(storage, `images/${uuid} + ${image.name}`);
+      uploadBytes(imageRef, image).then(async () => {
+        const downloadURL = await getDownloadURL(imageRef);
+        const itemsCollection = collectionGroup(storedb, "items");
+        const q = query(itemsCollection, where("uuid", "==", uuid));
+        await getDocs(q)
+          .then((collection) => {
+            collection.docs.forEach((doc) =>
+              updateDoc(doc.ref, { images: arrayUnion(downloadURL) })
+            );
+          })
+          .then(() => {
+            setItemImageAddedSuccesfully(true);
+          })
+          .catch(function (error) {
+            console.log("Error getting documents: ", error);
+          });
+      });
+    });
 
     // try {
     //   if (imageFiles.length === 0) return;
@@ -203,40 +202,30 @@ export function DataContextProvider({ children }) {
   };
 
   useEffect(() => {
-    //Get User Items
-    if (user && user.email) {
-      const docRef = doc(storedb, "users", `${user.email}`);
-      const getCol = collection(docRef, "items");
-      getDocs(getCol)
+    setTimeout(() => {
+      //Get User Items
+      if (user && user.email) {
+        const docRef = doc(storedb, "users", `${user.email}`);
+        const getCol = collection(docRef, "items");
+        getDocs(getCol)
+          .then((collection) => {
+            setUserItems(collection.docs.map((doc) => doc.data()));
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+
+      // Get All items for Main Page
+      const itemsCollection = collectionGroup(storedb, "items");
+      getDocs(itemsCollection)
         .then((collection) => {
-          setUserItems(collection.docs.map((doc) => doc.data()));
+          setItems(collection.docs.map((doc) => doc.data()));
         })
         .catch((error) => {
           console.log(error);
         });
-    }
-
-    //Get Current User Data
-    if (user && user.email) {
-      const docRef = doc(storedb, "users", `${user.email}`);
-      getDoc(docRef)
-        .then((doc) => {
-          setUserData(doc.data());
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-
-    // Get All items for Main Page
-    const itemsCollection = collectionGroup(storedb, "items");
-    getDocs(itemsCollection)
-      .then((collection) => {
-        setItems(collection.docs.map((doc) => doc.data()));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    }, 500);
   }, [user]);
 
   return (
@@ -257,7 +246,8 @@ export function DataContextProvider({ children }) {
 
         changeHandler,
         items,
-        userdata,
+        // userdata,
+        // setUserData,
         useritems,
         deleteItemFromDatabase,
         itemDeletedSucecsfully,
