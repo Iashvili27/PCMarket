@@ -31,12 +31,13 @@ export function DataContextProvider({ children }) {
 
   // Data for Users and Items
   const [items, setItems] = useState([]);
-
+  const [filteredImages, setFilteredImages] = useState([]);
   const [useritems, setUserItems] = useState([]);
   const [uuid, setUuid] = useState(uid());
   const userUid = user ? user.uid : null;
   // States for modal
   const [itemDeletedSucecsfully, setItemDeletedSuccesfully] = useState(false);
+  const [imageDeletedSucecsfully, setImageDeletedSuccesfully] = useState(false);
   const [itemAddedSuccesfully, setItemAddedSuccesfully] = useState(false);
   const [itemImageAddedSuccesfully, setItemImageAddedSuccesfully] =
     useState(false);
@@ -82,8 +83,8 @@ export function DataContextProvider({ children }) {
       });
     if (imageFiles.length === 0) return;
 
-    imageFiles.forEach((image) => {
-      const imageRef = storageref(storage, `images/${uuid} + ${image.name}`);
+    imageFiles.forEach((image, index) => {
+      const imageRef = storageref(storage, `images/${uuid} + ${index}`);
       uploadBytes(imageRef, image).then(async () => {
         const downloadURL = await getDownloadURL(imageRef);
         const itemsCollection = collectionGroup(storedb, "items");
@@ -172,31 +173,41 @@ export function DataContextProvider({ children }) {
       });
   };
 
-  // User Deletes Item From Database
+  // User Deletes Item and Image From Database
+  // Sometimes not all the images are getting deleted. Needs fix
 
-  const deleteItemFromDatabase = (item) => {
+  const deleteItemFromDatabase = async (item) => {
     if (user && user.email) {
       const docRef = doc(storedb, "users", `${user.email}`);
       const getCol = collection(docRef, "items");
       const q = query(getCol, where("uuid", "==", item));
-      getDocs(q)
+      let imagesArray;
+      await getDocs(q)
         .then((collection) => {
-          collection.docs.forEach((doc) => deleteDoc(doc.ref));
-          setItemDeletedSuccesfully(true);
+          collection.docs.map((doc) => (imagesArray = doc.data().images));
+          for (var i = 0; i < imagesArray.length; i++) {
+            const desertRef = storageref(storage, `images/${item} + ${i}`);
+            deleteObject(desertRef).catch((error) => {
+              console.log(error);
+            });
+          }
+        })
+        .then(() => {
+          setImageDeletedSuccesfully(true);
         })
         .catch(function (error) {
           console.log("Error getting documents: ", error);
         });
 
-      // Delete the Image
-      const desertRef = storageref(storage, `images/${item}`);
-      deleteObject(desertRef)
+      await getDocs(q)
+        .then((collection) => {
+          collection.docs.forEach((doc) => deleteDoc(doc.ref));
+        })
         .then(() => {
-          // File deleted successfully
           setItemDeletedSuccesfully(true);
         })
-        .catch((error) => {
-          console.log(error);
+        .catch(function (error) {
+          console.log("Error getting documents: ", error);
         });
     }
   };
@@ -231,23 +242,9 @@ export function DataContextProvider({ children }) {
   return (
     <dataContext.Provider
       value={{
-        // category,
-        // setCategory,
-        // contactnumber,
-        // setContactNumber,
-        // description,
-        // setDescription,
-        // price,
-        // setPrice,
-        // sellername,
-        // setSellerName,
-        // title,
-        // setTitle,
-
         changeHandler,
         items,
-        // userdata,
-        // setUserData,
+        imageDeletedSucecsfully,
         useritems,
         deleteItemFromDatabase,
         itemDeletedSucecsfully,
