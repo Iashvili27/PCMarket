@@ -6,6 +6,7 @@ import {
 } from "react-icons/io5";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
+import { MenuIcon } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
 
 function Category() {
@@ -17,7 +18,7 @@ function Category() {
     return classes.filter(Boolean).join(" ");
   }
   return (
-    <div className="">
+    <div className="flex justify-end w-full">
       <div className="hidden md:flex h-[50px] w-full justify-center items-center">
         <button className="mx-2 inline-flex justify-center w-full rounded-md  shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
           PC
@@ -282,10 +283,9 @@ function Category() {
       <div className="flex md:hidden h-[50px] w-full justify-end items-center p-1">
         <div
           onClick={handleNav}
-          className=" flex flex-row border-2 rounded-lg w-[180px] justify-center"
+          className=" flex  items-center rounded-lg  w-[80px] h-[35px] justify-center shadow-md "
         >
-          <p className="text-lg mr-1 font-semibold">Categories</p>
-          <AiOutlineMenu size={30} />
+          <MenuIcon className="h-6 w-6 text-black" aria-hidden="true" />
         </div>
       </div>
       <div
