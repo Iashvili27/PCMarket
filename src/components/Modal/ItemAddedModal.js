@@ -14,11 +14,11 @@ function ItemAddedModal(props) {
     itemImageAddedSuccesfully,
     setItemImageAddedSuccesfully,
   } = useDataContext();
-  console.log(itemAddedSuccesfully);
-  console.log(itemImageAddedSuccesfully);
+
   const navigate = useNavigate();
 
   const addItemHandler = () => {
+    props.loading(false);
     props.closeModal(false);
     setItemAddedSuccesfully(false);
     setItemImageAddedSuccesfully(false);
@@ -38,7 +38,7 @@ function ItemAddedModal(props) {
 
   return (
     <>
-      {itemAddedSuccesfully ? (
+      {itemAddedSuccesfully && itemImageAddedSuccesfully ? (
         <Transition.Root show={props.openModal} as={Fragment}>
           <Dialog
             as="div"
