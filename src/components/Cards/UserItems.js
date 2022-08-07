@@ -68,14 +68,20 @@ function UserItems() {
                           </div>
                         </div>
                         <div className="flex items-center justify-between h-1/2 p-2">
-                          <Link to={`${page}${item.uuid}`}>
-                            <button className="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-full">
-                              EDIT
-                            </button>
-                          </Link>
-
+                          <div>
+                            <Link to={`${page}${item.uuid}`}>
+                              <button className="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-1 md:px-4 rounded-full">
+                                EDIT
+                              </button>
+                            </Link>
+                            <Link className="ml-3" to={`/${item.uuid}`}>
+                              <button className="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-1 md:px-4 rounded-full">
+                                View
+                              </button>
+                            </Link>
+                          </div>
                           <button
-                            className="bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded-full"
+                            className="bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-1 md:px-4 rounded-full"
                             onClick={() => {
                               setModalData(item.uuid);
                               setOpenModal(true);
