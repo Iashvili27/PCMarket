@@ -18,7 +18,7 @@ function Category() {
     return classes.filter(Boolean).join(" ");
   }
   return (
-    <div className="flex justify-end w-full">
+    <div className="flex  ">
       <div className="hidden md:flex h-[50px] w-full justify-center items-center">
         <button className="mx-2 inline-flex justify-center w-full rounded-md  shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
           PC
