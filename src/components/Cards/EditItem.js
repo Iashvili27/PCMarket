@@ -11,6 +11,9 @@ import { useParams } from "react-router-dom";
 
 function Previews(props) {
   const { imageFiles, setImageFiles } = useDataContext();
+  let { id } = useParams();
+  const { items } = useDataContext();
+  const filterItems = items.filter((item) => item.uuid === id)[0];
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
@@ -59,7 +62,7 @@ function Previews(props) {
     </div>
   ));
 
-  useEffect(() => {
+  const thumbs1 = useEffect(() => {
     // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
     return () =>
       imageFiles.forEach((file) => URL.revokeObjectURL(file.preview));
@@ -67,7 +70,19 @@ function Previews(props) {
   }, []);
 
   return (
-    <section className="min-h-[50%] w-[90%] flex-col flex items-center">
+    <section className="min-h-[50%] w-[90%] flex flex-wrap items-center justify-center">
+      {filterItems.images.map((image, index) => (
+        <div className="w-[100px] h-[100px] md:w-[150px] md:h-[150px] relative m-2">
+          <img
+            className="w-full h-full object-cover rounded-lg"
+            alt=""
+            src={image}
+          ></img>
+          <button className="absolute right-0 top-0" type="button">
+            <FcCancel size={30} />
+          </button>
+        </div>
+      ))}
       <div
         {...getRootProps({
           className:
@@ -185,7 +200,7 @@ const EditItem = () => {
                     className="w-[90%] h-[50%] p-4"
                     rows={4}
                     placeholder="Write item description. Maximum 250 letters."
-                    maxLength={250}
+                    maxLength={500}
                     bordered
                     defaultValue={filterItems[0].description}
                     onChange={(value) =>
@@ -262,7 +277,7 @@ const EditItem = () => {
                     className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     type="submit"
                   >
-                    Add Item
+                    Edit Item
                   </button>
                 )}
               </Form>
