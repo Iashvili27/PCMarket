@@ -156,6 +156,31 @@ export function DataContextProvider({ children }) {
   const itemDateMonth = months[itemDate.getMonth()];
   const date = `${itemDateDay}/${itemDateMonth}`;
 
+  // USER EDITS ITEM
+
+  const editItem = (uuid, values) => {
+    const itemsCollection = collectionGroup(storedb, "items");
+    const q = query(itemsCollection, where("uuid", "==", uuid));
+    getDocs(q)
+      .then((collection) => {
+        collection.docs.forEach((doc) =>
+          updateDoc(doc.ref, {
+            category: values.category,
+            currency: values.currency,
+            description: values.description,
+            itemName: values.itemName,
+            itemPrice: values.itemPrice,
+            sellerName: values.sellerName,
+            sellerNumber: values.sellerNumber,
+          })
+        );
+        console.log("updated");
+      })
+      .catch(function (error) {
+        console.log("Error getting documents: ", error);
+      });
+  };
+
   // After click on item views are adding in firebase
 
   const addViewsToDatabase = (uuid, view) => {
@@ -256,6 +281,7 @@ export function DataContextProvider({ children }) {
         setImageFiles,
         itemImageAddedSuccesfully,
         setItemImageAddedSuccesfully,
+        editItem,
       }}
     >
       {children}
