@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import Application from "./Application";
-import Loading from "./Application";
+import App from "./App";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import { DataContextProvider } from "./context/DataContext";
 import { SearchContextProvider } from "./context/SearchContext";
@@ -13,7 +12,7 @@ root.render(
   <UserAuthContextProvider>
     <DataContextProvider>
       <SearchContextProvider>
-        <Application />
+        <App />
       </SearchContextProvider>
     </DataContextProvider>
   </UserAuthContextProvider>
