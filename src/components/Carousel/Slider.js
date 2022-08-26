@@ -5,7 +5,7 @@ import { Carousel } from "react-responsive-carousel";
 function Slider() {
   return (
     <Carousel
-      className="hidden w-[85%] z-0 m-[2%] md:flex"
+      className="hidden w-[full] z-0 m-[2%] md:flex"
       autoPlay
       interval="10000"
       infiniteLoop

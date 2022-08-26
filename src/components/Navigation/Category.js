@@ -19,13 +19,13 @@ function Category() {
   }
   return (
     <div className="flex">
-      <div className="hidden md:flex h-[50px] w-full justify-center items-center">
-        <button className="mx-2 inline-flex justify-center w-full rounded-md  shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+      <div className="hidden md:flex h-[50px] w-full justify-center items-center ">
+        <button className="mx-2 inline-flex justify-center w-full rounded-md  shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none  ">
           PC
         </button>
         <Menu as="div" className="relative inline-block text-left mx-2 ">
           <div>
-            <Menu.Button className="inline-flex rounded-md justify-center w-full  shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+            <Menu.Button className="inline-flex rounded-md justify-center w-full  shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none ">
               Components
               <ChevronDownIcon
                 className="-mr-1 ml-2 h-5 w-5"
@@ -43,7 +43,7 @@ function Category() {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="z-50 origin-top-right absolute right-0 mt-2 w-[100%] rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <Menu.Items className="z-50 origin-top-right absolute right-0 mt-2 w-[100%] rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ">
               <div className="py-1">
                 <Menu.Item>
                   {({ active }) => (
@@ -166,18 +166,18 @@ function Category() {
             </Menu.Items>
           </Transition>
         </Menu>
-        <button className="mx-2 inline-flex justify-center w-full rounded-md  shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+        <button className="mx-2 inline-flex justify-center w-full rounded-md  shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50  ">
           Laptops
         </button>
-        <button className="mx-2 inline-flex justify-center w-full rounded-md  shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+        <button className="mx-2 inline-flex justify-center w-full rounded-md  shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none  ">
           Consoles
         </button>
-        <button className="mx-2 inline-flex justify-center w-full rounded-md  shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+        <button className="mx-2 inline-flex justify-center w-full rounded-md  shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none  ">
           Monitors
         </button>
         <Menu as="div" className="relative inline-block text-left mx-2">
           <div>
-            <Menu.Button className="inline-flex justify-center rounded-md w-full r  shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+            <Menu.Button className="inline-flex justify-center rounded-md w-full r  shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none  ">
               Peripherals
               <ChevronDownIcon
                 className="-mr-1 ml-2 h-5 w-5"
@@ -288,11 +288,12 @@ function Category() {
           <MenuIcon className="h-6 w-6 text-black" aria-hidden="true" />
         </div>
       </div>
+
       <div
         className={
           !nav
-            ? "fixed left-0 top-0 w-[100%] border-r bg-white border-r-gray-900 h-full z-50"
-            : "hidden"
+            ? "fixed left-0 top-0 w-[100%] border-r bg-white border-r-gray-900 h-full z-50 ease-in-out duration-500"
+            : "hidden "
         }
       >
         <div className="flex flex-col items-center">
