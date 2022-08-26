@@ -34,19 +34,19 @@ function UserItems() {
                 return (
                   <div
                     key={item.uuid}
-                    className="p-4 m-2 flex flex-col rounded-lg border border-gray-200 h-[200px]"
+                    className="p-4 m-2 flex flex-col rounded-lg border border-gray-200 h-[120px]"
                   >
-                    <div className="flex justify-between w-full items-center p-4 h-[30%]">
-                      <h3 className="italic text-xl font-bold	md:text-2xl">
+                    <div className="flex justify-between w-full items-center p-2 h-[30%]">
+                      <h3 className="italic text-md font-bold	md:text-2xl">
                         {item.itemName}
                       </h3>
-                      <p className="text-sm">Added on : {item.date}</p>
+                      <p className="text-xs">Added on : {item.date}</p>
                     </div>
                     <div className="flex w-full h-[70%]">
                       <div className="w-[30%] items-center justify-center flex">
                         {item.images ? (
                           <img
-                            className="w-[100px] h-[100px] object-cover"
+                            className="w-[50px] h-[50px] object-cover"
                             alt="img"
                             src={`${item.images[0]}`}
                           />
@@ -60,28 +60,24 @@ function UserItems() {
                       </div>
                       <div className="w-[70%]">
                         <div className="flex items-center justify-between h-1/2 p-2">
-                          <div className="useritems-price">
-                            <p>Views : {item.views}</p>
-                          </div>
-                          <div className="useritems-price">
-                            <p>{item.itemPrice} GEL</p>
-                          </div>
+                          <p className="text-xs">Views : {item.views}</p>
+                          <p className="text-xs">{item.itemPrice} GEL</p>
                         </div>
                         <div className="flex items-center justify-between h-1/2 p-2">
                           <div>
                             <Link to={`${page}${item.uuid}`}>
-                              <button className="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-1 md:px-4 rounded-full">
+                              <button className="bg-blue-700 hover:bg-blue-900 text-white text-sm font-semibold rounded-xl md:px-4 p-1">
                                 EDIT
                               </button>
                             </Link>
                             <Link className="ml-3" to={`/${item.uuid}`}>
-                              <button className="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-1 md:px-4 rounded-full">
+                              <button className="bg-blue-700 hover:bg-blue-900 text-white text-sm font-semibold rounded-xl md:px-4 p-1">
                                 View
                               </button>
                             </Link>
                           </div>
                           <button
-                            className="bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-1 md:px-4 rounded-full"
+                            className="bg-red-700 hover:bg-red-900 text-white text-sm font-semibold rounded-xl md:px-4 p-1"
                             onClick={() => {
                               setModalData(item.uuid);
                               setOpenModal(true);

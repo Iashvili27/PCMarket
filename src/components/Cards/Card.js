@@ -53,31 +53,31 @@ const Card = ({ page }) => {
                   cardClickHandler(item.uuid, item.views);
                 }}
                 to={`${page}${item.uuid}`}
-                className="h-[150px] w-[90%] flex shadow-md  m-3 bg-white rounded-lg md:w-[350px] md-h[200px]"
+                className="h-[100px] w-[90%] flex shadow-md  m-3 bg-white rounded-lg md:w-[350px] md-h[200px] hover:scale-[1.02] duration-100"
                 key={item.uuid}
               >
                 {item.images?.[0] ? (
                   <img
-                    className="h-[100%] w-[40%] rounded-lg object-cover"
+                    className="h-[100%] w-[30%] rounded-lg object-cover"
                     alt="img"
                     src={`${item.images[0]}`}
                   />
                 ) : (
                   <img className="card-image" alt="img" src={MyImage} />
                 )}
-                <div className="w-[60%]">
-                  <p className="text-xl p-4 h-[50%] font-bold">
+                <div className="w-[70%]">
+                  <p className="text-md p-4 h-[50%] font-bold">
                     {item.itemName}
                   </p>
                   <div className="flex justify-between h-[50%] items-end">
                     {item.itemPrice ? (
-                      <p className="p-4 font-semibold	">
+                      <p className="text-sm p-4 font-semibold	">
                         {item.itemPrice} {item.currency}
                       </p>
                     ) : (
-                      <p className="p-4">OFFER</p>
+                      <p className="p-4 text-sm">OFFER</p>
                     )}
-                    <p className="p-4">{item.views} Views</p>
+                    <p className="p-4 text-sm">{item.views} Views</p>
                   </div>
                 </div>
               </Link>
