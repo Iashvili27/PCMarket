@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useRef, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
 import { useSearchContext } from "../../context/SearchContext";
-import { useDataContext } from "../../context/DataContext";
 import ProfileImage from "../../Assets/profilepic.png";
 import { Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/solid";
 import Search from "./Search";
 
 function Header() {
@@ -88,7 +86,11 @@ function Header() {
           {user && userData ? (
             <Menu as="div" className="relative inline-block text-left z-20  ">
               <Menu.Button className="inline-flex justify-center w-full  items-center rounded-md shadow-sm px-4 py-2 bg-gray-800 text-white text-sm font-medium  hover:bg-gray-600">
-                <img class="w-8 h-8 rounded-full" src={ProfileImage} alt="" />
+                <img
+                  className="w-8 h-8 rounded-full"
+                  src={ProfileImage}
+                  alt=""
+                />
                 <p className="ml-2"> {userData.firstname}</p>
               </Menu.Button>
               <Transition

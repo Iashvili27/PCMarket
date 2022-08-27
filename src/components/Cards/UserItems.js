@@ -37,7 +37,7 @@ function UserItems() {
                     className="p-4 m-2 flex flex-col rounded-lg border border-gray-200 h-[120px]"
                   >
                     <div className="flex justify-between w-full items-center p-2 h-[30%]">
-                      <h3 className="italic text-md font-bold	md:text-2xl">
+                      <h3 className="italic text-md font-bold	md:text-xl">
                         {item.itemName}
                       </h3>
                       <p className="text-xs">Added on : {item.date}</p>

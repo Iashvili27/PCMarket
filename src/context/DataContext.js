@@ -8,7 +8,6 @@ import {
   query,
   where,
   getDocs,
-  getDoc,
   deleteDoc,
   collectionGroup,
   updateDoc,
@@ -31,7 +30,6 @@ export function DataContextProvider({ children }) {
 
   // Data for Users and Items
   const [items, setItems] = useState([]);
-  const [filteredImages, setFilteredImages] = useState([]);
   const [useritems, setUserItems] = useState([]);
   const [uuid, setUuid] = useState(uid());
   const userUid = user ? user.uid : null;
@@ -49,7 +47,7 @@ export function DataContextProvider({ children }) {
     uploadItem(values);
   };
 
-  const uploadItem = async (values) => {
+  const uploadItem = (values) => {
     const {
       category,
       currency,
