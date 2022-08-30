@@ -18,22 +18,19 @@ function Category() {
     return classes.filter(Boolean).join(" ");
   }
   return (
-    <div className="flex">
-      <div className="hidden md:flex h-[50px] w-full justify-center items-center ">
+    <>
+      <div className="hidden xl:flex w-full justify-center items-center p-6 border-b">
         <button className="mx-2 inline-flex justify-center w-full rounded-md  shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none  ">
           PC
         </button>
-        <Menu as="div" className="relative inline-block text-left mx-2 ">
-          <div>
-            <Menu.Button className="inline-flex rounded-md justify-center w-full  shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none ">
-              Components
-              <ChevronDownIcon
-                className="-mr-1 ml-2 h-5 w-5"
-                aria-hidden="true"
-              />
-            </Menu.Button>
-          </div>
-
+        <Menu as="div" className="relative inline-block text-left mx-2 w-full">
+          <Menu.Button className="inline-flex rounded-md justify-center w-full  shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none ">
+            Components
+            <ChevronDownIcon
+              className="-mr-1 ml-2 h-5 w-5"
+              aria-hidden="true"
+            />
+          </Menu.Button>
           <Transition
             as={Fragment}
             enter="transition ease-out duration-100"
@@ -175,7 +172,7 @@ function Category() {
         <button className="mx-2 inline-flex justify-center w-full rounded-md  shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none  ">
           Monitors
         </button>
-        <Menu as="div" className="relative inline-block text-left mx-2">
+        <Menu as="div" className="relative inline-block text-left mx-2 w-full">
           <div>
             <Menu.Button className="inline-flex justify-center rounded-md w-full r  shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none  ">
               Peripherals
@@ -280,7 +277,7 @@ function Category() {
           </Transition>
         </Menu>
       </div>
-      <div className="flex md:hidden h-[50px] w-full justify-end items-center p-1">
+      <div className="flex xl:hidden h-[50px] w-full justify-center items-center p-10 border-b">
         <div
           onClick={handleNav}
           className=" flex  items-center rounded-lg  w-[80px] h-[35px] justify-center shadow-md "
@@ -370,7 +367,7 @@ function Category() {
           </ul>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
