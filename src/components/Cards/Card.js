@@ -24,7 +24,6 @@ const Card = ({ page }) => {
   return (
     <div className="w-full h-full">
       {category ? <h3>{category}</h3> : null}
-      <p>gey</p>
       {items.length > 0 && loading ? (
         <div className="flex flex-col items-center justify-center">
           <CardLoader />
